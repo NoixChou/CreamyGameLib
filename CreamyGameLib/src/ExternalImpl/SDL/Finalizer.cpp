@@ -8,7 +8,7 @@ namespace creamyLib::impl
     {
         if(!sdlHandle)
         {
-            //return;
+            return;
         }
 
         if (sdlHandle->sdlRenderer)

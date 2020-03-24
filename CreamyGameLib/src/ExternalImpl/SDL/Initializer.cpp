@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#include "ExternalImpl/SDL/Finalizer.hpp"
+
 namespace creamyLib::impl
 {
     SDLMessage Initialize(const SDLConfig& sdlConfig)
@@ -19,6 +21,16 @@ namespace creamyLib::impl
             return SDLMessage("Fail: SDL Create Window", false);
         }
 
-        return SDLMessage("", true, new SDLHandle{ l_Window, nullptr });
+        SDL_Renderer* l_Renderer = SDL_CreateRenderer(l_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+        if(!l_Renderer)
+        {
+            Finalize(new SDLHandle{ l_Window, nullptr });
+            return SDLMessage("Fail: SDL Create Renderer", false);
+        }
+
+        SDL_SetRenderDrawColor(l_Renderer, 0, 0, 255, 255);
+
+        return SDLMessage("", true, new SDLHandle{ l_Window, l_Renderer });
     }
 }

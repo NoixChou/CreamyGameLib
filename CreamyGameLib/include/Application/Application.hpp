@@ -3,6 +3,7 @@
 #include "ApplicationConfig.hpp"
 
 #include "ExternalImpl/SDL/SDLHandle.hpp"
+#include "Engine/World/World.hpp"
 
 namespace creamyLib
 {
@@ -18,7 +19,7 @@ namespace creamyLib
     public:
         static Application Create(const ApplicationConfig& applicationConfig);
 
-        void Start();
+        void Start(engine::World* startWorld);
         void Quit();
     };
 }
