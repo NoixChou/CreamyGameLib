@@ -1,10 +1,10 @@
-#include "ExternalImpl/SDL/Finalizer.hpp"
+#include "ExternalImpl/SDL/SDLFinalizer.hpp"
 
 #include <SDL.h>
 
 namespace creamyLib::impl
 {
-    void Finalize(const SDLHandlePointer sdlHandle)
+    void Finalize(const LibHandlePointer sdlHandle)
     {
         if(!sdlHandle)
         {

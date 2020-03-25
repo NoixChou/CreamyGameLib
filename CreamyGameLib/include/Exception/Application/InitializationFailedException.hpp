@@ -7,6 +7,6 @@ namespace creamyLib::exception
     class InitializationFailedException : public Exception
     {
     public:
-        InitializationFailedException(const std::string& message) : Exception(message) {}
+        InitializationFailedException(const std::string& message = "") : Exception(message) {}
     };
 }

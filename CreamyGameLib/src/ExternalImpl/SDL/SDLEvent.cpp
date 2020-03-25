@@ -4,9 +4,9 @@
 
 namespace creamyLib::impl
 {
-    bool SDLEvent::isQuit = false;
+    bool WindowEvent::isQuit = false;
 
-    void SDLEvent::Process()
+    void WindowEvent::Process()
     {
         SDL_Event l_Event;
 
@@ -21,7 +21,7 @@ namespace creamyLib::impl
         }
     }
 
-    bool SDLEvent::IsQuit()
+    bool WindowEvent::IsQuit()
     {
         return isQuit;
     }

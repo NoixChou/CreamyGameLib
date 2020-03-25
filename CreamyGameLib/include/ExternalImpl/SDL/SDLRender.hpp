@@ -3,6 +3,10 @@
 
 namespace creamyLib::impl
 {
-    void ClearBuffer(const SDLHandlePointer sdlHandle);
-    void PresentBuffer(const SDLHandlePointer sdlHandle);
+    class RenderService
+    {
+    public:
+        static void ClearBuffer(const LibHandlePointer sdlHandle);
+        static void PresentBuffer(const LibHandlePointer sdlHandle);
+    };
 }

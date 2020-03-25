@@ -2,7 +2,7 @@
 
 #include "ApplicationConfig.hpp"
 
-#include "ExternalImpl/SDL/SDLHandle.hpp"
+#include "ExternalImpl/ExternalLibrary.hpp"
 #include "Engine/World/World.hpp"
 
 namespace creamyLib
@@ -10,11 +10,11 @@ namespace creamyLib
     class Application
     {
     private:
-        impl::SDLHandlePointer sdlHandle;
+        impl::LibHandlePointer libHandle;
 
         bool isRunning = true;
 
-        Application(impl::SDLHandlePointer sdlHandle);
+        Application(impl::LibHandlePointer libHandle);
 
     public:
         static Application Create(const ApplicationConfig& applicationConfig);

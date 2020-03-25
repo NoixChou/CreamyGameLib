@@ -3,5 +3,5 @@
 
 namespace creamyLib::impl
 {
-    void Finalize(SDLHandlePointer sdlHandle);
+    void Finalize(LibHandlePointer sdlHandle);
 }

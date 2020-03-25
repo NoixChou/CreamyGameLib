@@ -4,12 +4,12 @@
 
 namespace creamyLib::impl
 {
-    void ClearBuffer(const SDLHandlePointer sdlHandle)
+    void RenderService::ClearBuffer(const LibHandlePointer sdlHandle)
     {
         SDL_RenderClear(sdlHandle->sdlRenderer);
     }
 
-    void PresentBuffer(const SDLHandlePointer sdlHandle)
+    void RenderService::PresentBuffer(const LibHandlePointer sdlHandle)
     {
         SDL_RenderPresent(sdlHandle->sdlRenderer);
     }

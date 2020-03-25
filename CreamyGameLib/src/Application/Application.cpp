@@ -4,11 +4,7 @@
 
 #include "Application/ApplicationConfig.hpp"
 
-#include "ExternalImpl/SDL/SDLConfig.hpp"
-#include "ExternalImpl/SDL/Initializer.hpp"
-#include "ExternalImpl/SDL/Finalizer.hpp"
-#include "ExternalImpl/SDL/SDLEvent.hpp"
-#include "ExternalImpl/SDL/SDLRender.hpp"
+#include "ExternalImpl/ExternalLibrary.hpp"
 
 #include "Exception/Application/InitializationFailedException.hpp"
 
@@ -16,20 +12,20 @@
 
 namespace creamyLib
 {
-    Application::Application(impl::SDLHandlePointer sdlHandle) : sdlHandle(sdlHandle)
+    Application::Application(const impl::LibHandlePointer libHandle) : libHandle(libHandle)
     {
     }
 
     Application Application::Create(const ApplicationConfig& applicationConfig)
     {
-        auto l_Result = impl::Initialize(impl::SDLConfig{ applicationConfig.applicationTitle, 100, 100, applicationConfig.windowWidth, applicationConfig.windowHeight, 0 });
+        auto l_LibHandle = impl::Initialize(impl::LibConfig{ applicationConfig.applicationTitle, 100, 100, applicationConfig.windowWidth, applicationConfig.windowHeight, 0 });
 
-        if(!l_Result.isSucceed)
+        if(!l_LibHandle)
         {
-            throw exception::InitializationFailedException(l_Result.description);
+            throw exception::InitializationFailedException();
         }
 
-        return Application(l_Result.sdlHandle);
+        return Application(l_LibHandle);
     }
 
     void Application::Start(engine::World* startWorld)
@@ -38,17 +34,17 @@ namespace creamyLib
 
         while(isRunning)
         {
-            impl::SDLEvent::Process();
+            impl::WindowEvent::Process();
 
             engine::DeltaTime::Update();
-            impl::ClearBuffer(sdlHandle);
+            impl::RenderService::ClearBuffer(libHandle);
 
             float deltaTime = engine::DeltaTime::Get();
             startWorld->Update(deltaTime);
 
-            impl::PresentBuffer(sdlHandle);
+            impl::RenderService::PresentBuffer(libHandle);
 
-            isRunning = !impl::SDLEvent::IsQuit();
+            isRunning = !impl::WindowEvent::IsQuit();
         }
 
         startWorld->Destroy();
@@ -56,6 +52,6 @@ namespace creamyLib
 
     void Application::Quit()
     {
-        impl::Finalize(this->sdlHandle);
+        impl::Finalize(this->libHandle);
     }
 }

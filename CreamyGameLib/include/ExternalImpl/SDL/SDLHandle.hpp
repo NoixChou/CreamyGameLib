@@ -5,11 +5,11 @@ struct SDL_Renderer;
 
 namespace creamyLib::impl
 {
-    struct SDLHandle
+    struct LibHandle
     {
         SDL_Window* const sdlWindow;
         SDL_Renderer* const sdlRenderer;
     };
 
-    using SDLHandlePointer = SDLHandle*;
+    using LibHandlePointer = LibHandle*;
 }

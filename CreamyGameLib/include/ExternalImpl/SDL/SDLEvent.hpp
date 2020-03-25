@@ -2,7 +2,7 @@
 
 namespace creamyLib::impl
 {
-    class SDLEvent
+    class WindowEvent
     {
     private:
         static bool isQuit;

@@ -1,11 +1,11 @@
 #pragma once
 
-#include <SDL_hints.h>
+#include <SDL/SDL_hints.h>
 #include <string>
 
 namespace creamyLib::impl
 {
-    struct SDLConfig
+    struct LibConfig
     {
         std::string windowTitle;
         int windowPosX;
