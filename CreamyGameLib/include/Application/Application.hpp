@@ -2,7 +2,8 @@
 
 #include "ApplicationConfig.hpp"
 
-#include "ExternalImpl/ExternalLibrary.hpp"
+#include "../../InternalLib/include/ExternalLibrary.hpp"
+
 #include "Engine/World/World.hpp"
 
 namespace creamyLib

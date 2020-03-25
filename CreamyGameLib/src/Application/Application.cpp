@@ -4,7 +4,7 @@
 
 #include "Application/ApplicationConfig.hpp"
 
-#include "ExternalImpl/ExternalLibrary.hpp"
+#include "../../InternalLib/include/ExternalLibrary.hpp"
 
 #include "Exception/Application/InitializationFailedException.hpp"
 
