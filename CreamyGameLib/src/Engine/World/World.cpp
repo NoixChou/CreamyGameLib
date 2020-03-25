@@ -11,7 +11,15 @@ namespace creamyLib::engine
 
     void World::Update(float deltaTime)
     {
-        
+        UpdateScenes(deltaTime);
+    }
+
+    void World::UpdateScenes(float deltaTime)
+    {
+        for (auto l_Scene : scenes)
+        {
+            l_Scene->Update(deltaTime);
+        }
     }
 
     void World::AddScene(Scene* scene)
@@ -34,5 +42,10 @@ namespace creamyLib::engine
     void World::Destroy()
     {
         
+    }
+
+    Application* World::GetApplication() const
+    {
+        return application;
     }
 }

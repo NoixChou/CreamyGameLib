@@ -11,6 +11,7 @@ namespace creamyLib::engine
         static float deltaTime;
 
     public:
+        static void Init();
         static void Update();
         static float Get();
     };

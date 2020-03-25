@@ -9,6 +9,7 @@
 #include "Exception/Application/InitializationFailedException.hpp"
 
 #include "Engine/Time/DeltaTime.hpp"
+#include "Util/Color.hpp"
 
 namespace creamyLib
 {
@@ -32,13 +33,15 @@ namespace creamyLib
     {
         std::cout << "Application started" << std::endl;
 
+        engine::DeltaTime::Init();
+
         while(isRunning)
         {
             impl::WindowEvent::Process();
 
-            engine::DeltaTime::Update();
-            impl::RenderService::ClearBuffer(libHandle);
+            impl::RenderService::ClearBuffer(libHandle, Color(255, 255, 255));
 
+            engine::DeltaTime::Update();
             float deltaTime = engine::DeltaTime::Get();
             startWorld->Update(deltaTime);
 
@@ -53,5 +56,10 @@ namespace creamyLib
     void Application::Quit()
     {
         impl::Finalize(this->libHandle);
+    }
+
+    impl::LibHandlePointer Application::GetLibHandle() const
+    {
+        return libHandle;
     }
 }

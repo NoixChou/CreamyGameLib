@@ -6,7 +6,7 @@
 
 namespace creamyLib::impl
 {
-    void Finalize(const LibHandlePointer libHandle)
+    void Finalize(const LibHandlePointer& libHandle)
     {
         if(!libHandle)
         {

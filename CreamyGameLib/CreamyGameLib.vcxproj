@@ -37,6 +37,9 @@
   <ItemGroup>
     <ClInclude Include="include\Application\Application.hpp" />
     <ClInclude Include="include\Application\ApplicationConfig.hpp" />
+    <ClInclude Include="include\Engine\Actor\Component\Primitive\2D\PrimitiveRendererComponent.hpp" />
+    <ClInclude Include="include\Engine\Actor\Component\Transform\TransformComponent.hpp" />
+    <ClInclude Include="include\Engine\Actor\Component\UserComponent.hpp" />
     <ClInclude Include="include\Engine\Time\DeltaTime.hpp" />
     <ClInclude Include="include\Engine\Actor\Actor.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Component.hpp" />
@@ -45,12 +48,18 @@
     <ClInclude Include="include\Engine\World\WorldConfiguration.hpp" />
     <ClInclude Include="include\Exception\Application\InitializationFailedException.hpp" />
     <ClInclude Include="include\Exception\Exception.hpp" />
+    <ClInclude Include="include\Math\Vector2.hpp" />
+    <ClInclude Include="include\Math\Vector3.hpp" />
+    <ClInclude Include="include\Util\Color.hpp" />
     <ClInclude Include="include\Util\Message\Message.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
     <ClCompile Include="src\Engine\Actor\Actor.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\Component.cpp" />
+    <ClCompile Include="src\Engine\Actor\Component\Primitive\PrimitiveRendererComponent.cpp" />
+    <ClCompile Include="src\Engine\Actor\Component\Transform\TransformComponent.cpp" />
+    <ClCompile Include="src\Engine\Actor\Component\UserComponent.cpp" />
     <ClCompile Include="src\Engine\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Time\DeltaTime.cpp" />
     <ClCompile Include="src\Engine\World\World.cpp" />
@@ -148,28 +157,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\Debug\;$(LibraryPath)</LibraryPath>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\Debug\;$(LibraryPath)</LibraryPath>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_DxLib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\Debug\;$(LibraryPath)</LibraryPath>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\Debug\;$(LibraryPath)</LibraryPath>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
@@ -178,28 +187,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_DxLib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\InternalLib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\InternalLib\lib\$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>

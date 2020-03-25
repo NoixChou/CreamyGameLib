@@ -4,5 +4,5 @@
 
 namespace creamyLib::impl
 {
-    void Finalize(LibHandlePointer libHandle);
+    void Finalize(const LibHandlePointer& libHandle);
 }

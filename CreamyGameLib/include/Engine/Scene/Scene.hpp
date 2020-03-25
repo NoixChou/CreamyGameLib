@@ -25,5 +25,8 @@ namespace creamyLib::engine
 
         void AddActor(Actor* actor);
         void RemoveActor(Actor* actor);
+
+        World* GetOwner() const;
+        Application* GetApplication() const;
     };
 }

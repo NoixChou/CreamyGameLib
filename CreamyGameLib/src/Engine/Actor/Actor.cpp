@@ -4,7 +4,7 @@
 
 namespace creamyLib::engine
 {
-    Actor::Actor(Scene* scene) : owner(scene)
+    Actor::Actor(Scene* scene) : owner(scene), transform(new TransformComponent(math::Vector3(0, 0, 0), this))
     {
         owner->AddActor(this);
     }
@@ -43,5 +43,20 @@ namespace creamyLib::engine
         {
             components.erase(l_ComponentIterator);
         }
+    }
+
+    TransformComponent* Actor::GetTransform() const
+    {
+        return transform;
+    }
+
+    Scene* Actor::GetOwner() const
+    {
+        return owner;
+    }
+
+    Application* Actor::GetApplication() const
+    {
+        return owner->GetApplication();
     }
 }

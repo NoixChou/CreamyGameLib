@@ -22,5 +22,7 @@ namespace creamyLib
 
         void Start(engine::World* startWorld);
         void Quit();
+
+        impl::LibHandlePointer GetLibHandle() const;
     };
 }

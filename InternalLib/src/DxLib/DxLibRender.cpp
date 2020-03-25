@@ -2,17 +2,21 @@
 
 #include "Render.hpp"
 
+#include "../../../CreamyGameLib/include/Util/Color.hpp"
+
 #include "DxLib.h"
 
 namespace creamyLib::impl
 {
-    void RenderService::ClearBuffer(const LibHandlePointer libHandle)
+    void RenderService::ClearBuffer(const LibHandlePointer& libHandle, const Color& color)
     {
+        const auto [r, g, b, a] = color;
+        DxLib::SetBackgroundColor(r, g, b, a);
         DxLib::ClearDrawScreen();
         DxLib::clsDx();
     }
 
-    void RenderService::PresentBuffer(const LibHandlePointer libHandle)
+    void RenderService::PresentBuffer(const LibHandlePointer& libHandle)
     {
         DxLib::ScreenFlip();
     }

@@ -16,14 +16,14 @@ namespace creamyLib::engine
 
     void Scene::Update(float deltaTime)
     {
-        
+        UpdateActors(deltaTime);
     }
 
     void Scene::UpdateActors(float deltaTime)
     {
         for (auto l_Actor : actors)
         {
-            l_Actor->Update(deltaTime);
+            l_Actor->InternalUpdate(deltaTime);
         }
     }
 
@@ -42,5 +42,15 @@ namespace creamyLib::engine
         {
             actors.erase(l_ActorIterator);
         }
+    }
+
+    World* Scene::GetOwner() const
+    {
+        return owner;
+    }
+
+    Application* Scene::GetApplication() const
+    {
+        return owner->GetApplication();
     }
 }

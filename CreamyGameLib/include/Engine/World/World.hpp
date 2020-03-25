@@ -16,17 +16,21 @@ namespace creamyLib::engine
         Scene::SceneCollection scenes;
 
     protected:
-        creamyLib::Application* application;
+        Application* application;
         WorldConfiguration configuration;
 
     public:
-        World(creamyLib::Application* app, WorldConfiguration config = {});
+        World(Application* app, WorldConfiguration config = {});
 
         void Update(float deltaTime);
+
+        void UpdateScenes(float deltaTime);
 
         void AddScene(Scene* scene);
         void RemoveScene(Scene* scene);
 
         void Destroy();
+
+        Application* GetApplication() const;
     };
 }

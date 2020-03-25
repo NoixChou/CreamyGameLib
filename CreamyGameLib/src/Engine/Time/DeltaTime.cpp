@@ -7,6 +7,11 @@ namespace creamyLib::engine
     std::chrono::high_resolution_clock::time_point DeltaTime::clockCount;
     float DeltaTime::deltaTime = 0.f;
 
+    void DeltaTime::Init()
+    {
+        clockCount = std::chrono::high_resolution_clock::now();
+    }
+
     void DeltaTime::Update()
     {
         deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - clockCount).count() / 1000000.0f;
