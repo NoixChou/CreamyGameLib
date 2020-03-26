@@ -22,7 +22,7 @@ namespace creamyLib::impl
             return nullptr;
         }
 
-        SDL_Renderer* l_Renderer = SDL_CreateRenderer(l_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+        SDL_Renderer* l_Renderer = SDL_CreateRenderer(l_Window, -1, SDL_RENDERER_ACCELERATED);
 
         if(!l_Renderer)
         {
@@ -30,6 +30,7 @@ namespace creamyLib::impl
             return nullptr;
         }
 
+        SDL_SetRenderDrawBlendMode(l_Renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(l_Renderer, 0, 0, 0, 255);
 
         SDL_Log("SDL Initialized");
