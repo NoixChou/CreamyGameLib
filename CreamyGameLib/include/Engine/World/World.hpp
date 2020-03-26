@@ -28,7 +28,7 @@ namespace creamyLib::engine
 
         void AddScene(Scene* scene);
         void RemoveScene(Scene* scene);
-
+        
         void Destroy();
 
         Application* GetApplication() const;
