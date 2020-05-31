@@ -4,10 +4,12 @@
 
 #include "../../InternalLib/include/ExternalLibrary.hpp"
 
-#include "Engine/World/World.hpp"
-
 namespace creamyLib
 {
+    namespace engine {
+        class World;
+    }
+
     class Application
     {
     private:
@@ -21,8 +23,8 @@ namespace creamyLib
         static Application Create(const ApplicationConfig& applicationConfig);
 
         void Start(engine::World* startWorld);
-        void Quit();
+        void Quit() const;
 
-        impl::LibHandlePointer GetLibHandle() const;
+        [[nodiscard]] impl::LibHandlePointer GetLibHandle() const;
     };
 }

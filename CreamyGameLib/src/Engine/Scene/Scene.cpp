@@ -1,17 +1,18 @@
 #include "Engine/Scene/Scene.hpp"
 
 #include "Engine/World/World.hpp"
+#include "Engine/Actor/Actor.hpp"
 
 namespace creamyLib::engine
 {
-    Scene::Scene(World* world) : owner(world)
+    Scene::Scene(const object::EngineObjectConfig& config) : EngineObject(config)
     {
-        owner->AddScene(this);
+        GetOwner()->AddScene(this);
     }
 
     Scene::~Scene()
     {
-        owner->RemoveScene(this);
+        GetOwner()->AddScene(this);
     }
 
     void Scene::Update(float deltaTime)
@@ -21,7 +22,7 @@ namespace creamyLib::engine
 
     void Scene::UpdateActors(float deltaTime)
     {
-        for (auto l_Actor : actors)
+        for (auto* const l_Actor : actors)
         {
             l_Actor->InternalUpdate(deltaTime);
         }
@@ -46,11 +47,11 @@ namespace creamyLib::engine
 
     World* Scene::GetOwner() const
     {
-        return owner;
+        return dynamic_cast<World*>(config.owner);
     }
 
     Application* Scene::GetApplication() const
     {
-        return owner->GetApplication();
+        return GetOwner()->GetApplication();
     }
 }

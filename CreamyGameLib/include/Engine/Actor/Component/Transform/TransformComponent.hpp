@@ -11,7 +11,7 @@ namespace creamyLib::engine
     public:
         math::Vector3 position;
 
-        TransformComponent(const math::Vector3& initPosition, Actor* owner, int updatePriority = 50);
+        TransformComponent(const math::Vector3& initPosition, const ComponentConfig& config);
 
         void Update(float deltaTime) override;
     };

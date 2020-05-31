@@ -4,14 +4,14 @@
 
 namespace creamyLib::engine
 {
-    Actor::Actor(Scene* scene) : owner(scene), transform(new TransformComponent(math::Vector3(0, 0, 0), this))
+    Actor::Actor(const object::EngineObjectConfig& config) : EngineObject(config), transform(TransformComponent(math::Vector3(0, 0, 0), { {this}, false}))
     {
-        owner->AddActor(this);
+        GetOwner()->AddActor(this);
     }
 
     Actor::~Actor()
     {
-        owner->RemoveActor(this);
+        GetOwner()->RemoveActor(this);
     }
 
     void Actor::InternalUpdate(float deltaTime)
@@ -22,7 +22,7 @@ namespace creamyLib::engine
 
     void Actor::UpdateComponents(float deltaTime)
     {
-        for(auto l_Component : components)
+        for(const auto& l_Component : components)
         {
             l_Component->Update(deltaTime);
         }
@@ -45,18 +45,18 @@ namespace creamyLib::engine
         }
     }
 
-    TransformComponent* Actor::GetTransform() const
+    TransformComponent& Actor::GetTransform()
     {
         return transform;
     }
 
     Scene* Actor::GetOwner() const
     {
-        return owner;
+        return dynamic_cast<Scene*>(config.owner);
     }
 
     Application* Actor::GetApplication() const
     {
-        return owner->GetApplication();
+        return GetOwner()->GetApplication();
     }
 }

@@ -2,22 +2,23 @@
 
 #include <vector>
 
-#include "Engine/Actor/Actor.hpp"
+#include "Engine/EngineObject.hpp"
 
 namespace creamyLib::engine
 {
     class World;
+    class Actor;
 
-    class Scene
+    class Scene : public object::EngineObject
     {
     protected:
-        World* owner;
-        Actor::ActorCollection actors;
+        std::vector<Actor*> actors;
 
     public:
+        using ScenePointer = Scene*;
         using SceneCollection = std::vector<Scene*>;
 
-        Scene(World* world);
+        Scene(const object::EngineObjectConfig& config);
         ~Scene();
 
         void Update(float deltaTime);
@@ -26,7 +27,7 @@ namespace creamyLib::engine
         void AddActor(Actor* actor);
         void RemoveActor(Actor* actor);
 
-        World* GetOwner() const;
-        Application* GetApplication() const;
+        [[nodiscard]] World* GetOwner() const;
+        [[nodiscard]] Application* GetApplication() const override;
     };
 }

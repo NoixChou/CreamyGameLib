@@ -125,7 +125,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\CreamyGameLib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\CreamyGameLib\lib\$(PlatformShortName)\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\CreamyGameLib\lib\$(PlatformShortName)\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>bin\$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>build\$(PlatformName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -137,7 +137,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>..\CreamyGameLib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\CreamyGameLib\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\CreamyGameLib\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
     <OutDir>bin\$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>build\$(PlatformName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -149,7 +149,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\CreamyGameLib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\CreamyGameLib\lib\$(PlatformShortName)\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\CreamyGameLib\lib\$(PlatformShortName)\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>bin\$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>build\$(PlatformName)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -161,7 +161,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>..\CreamyGameLib\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\CreamyGameLib\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\CreamyGameLib\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
     <OutDir>bin\$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>build\$(PlatformName)\$(Configuration)\</IntDir>
   </PropertyGroup>

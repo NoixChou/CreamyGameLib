@@ -1,10 +1,11 @@
 #include "Engine/World/World.hpp"
 
 #include "Application/Application.hpp"
+#include "Engine/Scene/Scene.hpp"
 
 namespace creamyLib::engine
 {
-    World::World(creamyLib::Application* app, WorldConfiguration config) : application(app), configuration(config)
+    World::World(Application* app, const WorldConfiguration config) : EngineObject({ nullptr }), application(app), configuration(config)
     {
         
     }
@@ -16,7 +17,7 @@ namespace creamyLib::engine
 
     void World::UpdateScenes(float deltaTime)
     {
-        for (auto l_Scene : scenes)
+        for (const auto& l_Scene : scenes)
         {
             l_Scene->Update(deltaTime);
         }
@@ -37,11 +38,6 @@ namespace creamyLib::engine
         {
             scenes.erase(l_SceneIterator);
         }
-    }
-
-    void World::Destroy()
-    {
-        
     }
 
     Application* World::GetApplication() const

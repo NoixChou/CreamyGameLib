@@ -2,25 +2,26 @@
 
 #include <vector>
 
+#include "Engine/EngineObject.hpp"
+#include "Engine/Actor/Component/ComponentConfig.hpp"
+
 namespace creamyLib::engine
 {
     class Actor;
 
-    class Component
+    class Component : public object::EngineObject
     {
-    protected:
-        Actor* owner;
-        int updatePriority;
-
     public:
+        using ComponentPointer = Component*;
         using ComponentCollection = std::vector<Component*>;
 
-        Component(Actor* owner, int updatePriority = 50);
+        Component(const ComponentConfig& config);
         virtual ~Component();
 
         virtual void Update(float deltaTime) = 0;
 
         int GetUpdatePriority() const;
-        Actor* GetOwner() const;
+        [[nodiscard]] Actor* GetOwner() const;
+        [[nodiscard]] Application* GetApplication() const override;
     };
 }

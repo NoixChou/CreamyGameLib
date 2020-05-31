@@ -20,7 +20,7 @@ namespace creamyLib::engine
         Color color;
         bool isFill;
 
-        PrimitiveRendererComponent(PrimitiveType primitive, const math::Vector2& size, const Color& color, Actor* owner, int updatePriority = 50);
+        PrimitiveRendererComponent(PrimitiveType primitive, const math::Vector2& size, const Color& color, const ComponentConfig& config);
 
         void Update(float deltaTime) override;
     };

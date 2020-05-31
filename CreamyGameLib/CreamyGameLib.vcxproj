@@ -37,9 +37,13 @@
   <ItemGroup>
     <ClInclude Include="include\Application\Application.hpp" />
     <ClInclude Include="include\Application\ApplicationConfig.hpp" />
+    <ClInclude Include="include\Engine\Actor\ActorParamater.hpp" />
+    <ClInclude Include="include\Engine\Actor\Component\ComponentConfig.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Primitive\2D\PrimitiveRendererComponent.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Transform\TransformComponent.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\UserComponent.hpp" />
+    <ClInclude Include="include\Engine\EngineObject.hpp" />
+    <ClInclude Include="include\Engine\EngineObjectConfig.hpp" />
     <ClInclude Include="include\Engine\Time\DeltaTime.hpp" />
     <ClInclude Include="include\Engine\Actor\Actor.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Component.hpp" />
@@ -60,6 +64,7 @@
     <ClCompile Include="src\Engine\Actor\Component\Primitive\PrimitiveRendererComponent.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\Transform\TransformComponent.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\UserComponent.cpp" />
+    <ClCompile Include="src\Engine\EngineObject.cpp" />
     <ClCompile Include="src\Engine\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Time\DeltaTime.cpp" />
     <ClCompile Include="src\Engine\World\World.cpp" />
@@ -227,6 +232,7 @@
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -250,6 +256,7 @@
       </ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -272,6 +279,7 @@
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -295,6 +303,7 @@
       </ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -319,6 +328,7 @@
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -346,6 +356,7 @@
       </ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -372,6 +383,7 @@
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -399,6 +411,7 @@
       </ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

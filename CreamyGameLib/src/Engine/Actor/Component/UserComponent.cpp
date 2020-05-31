@@ -4,7 +4,7 @@
 
 namespace creamyLib::engine
 {
-    UserComponent::UserComponent(UpdateMethod update, Actor* owner, int updatePriority) : Component(owner, updatePriority), updateMethod(std::move(update))
+    UserComponent::UserComponent(UpdateMethod update, const ComponentConfig& config) : Component(config), updateMethod(std::move(update))
     {
         
     }

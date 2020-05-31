@@ -15,7 +15,7 @@ namespace creamyLib::engine
         UpdateMethod updateMethod;
 
     public:
-        UserComponent(UpdateMethod update, Actor* owner, int updatePriority = 50);
+        UserComponent(UpdateMethod update, const ComponentConfig& config);
 
         void Update(float deltaTime) override;
     };

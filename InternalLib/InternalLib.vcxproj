@@ -152,14 +152,14 @@
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
     <IncludePath>include;..\External\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
     <IncludePath>include;..\External\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\DxLib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_DxLib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -167,14 +167,14 @@
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
     <IncludePath>include;..\External\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\Debug\</OutDir>
     <IncludePath>include;..\External\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\DxLib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_DxLib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -182,14 +182,14 @@
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
     <IncludePath>include;..\External\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
     <IncludePath>include;..\External\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\DxLib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_DxLib</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -197,14 +197,14 @@
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
     <IncludePath>include;..\External\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>build\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>lib\$(PlatformShortName)\</OutDir>
     <IncludePath>include;..\External\DxLib;$(IncludePath)</IncludePath>
-    <LibraryPath>..\External\SDL\lib\$(PlatformShortName);..\External\DxLib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\External\DxLib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)_DxLib</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -226,6 +226,9 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|x64'">
     <ClCompile>
@@ -245,8 +248,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>
-      </LinkLibraryDependencies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
       <AdditionalDependencies>
@@ -274,6 +276,9 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|Win32'">
     <ClCompile>
@@ -293,8 +298,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>
-      </LinkLibraryDependencies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
       <AdditionalDependencies>
@@ -326,6 +330,9 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|Win32'">
     <ClCompile>
@@ -375,6 +382,9 @@
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
+    <Lib>
+      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|x64'">
     <ClCompile>

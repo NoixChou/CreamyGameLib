@@ -1,8 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "WorldConfiguration.hpp"
 
-#include "Engine/Scene/Scene.hpp"
+#include "Engine/EngineObject.hpp"
 
 namespace creamyLib {
     class Application;
@@ -10,10 +12,12 @@ namespace creamyLib {
 
 namespace creamyLib::engine
 {
-    class World
+    class Scene;
+
+    class World : public object::EngineObject
     {
     private:
-        Scene::SceneCollection scenes;
+        std::vector<Scene*> scenes;
 
     protected:
         Application* application;
@@ -28,9 +32,7 @@ namespace creamyLib::engine
 
         void AddScene(Scene* scene);
         void RemoveScene(Scene* scene);
-        
-        void Destroy();
 
-        Application* GetApplication() const;
+        [[nodiscard]] Application* GetApplication() const override;
     };
 }

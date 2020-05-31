@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Engine/Actor/Component/Transform/TransformComponent.hpp"
-#include "Engine/Actor/Component/Component.hpp"
-
 #include <vector>
+
+#include "Component/Transform/TransformComponent.hpp"
+#include "Engine/EngineObject.hpp"
 
 namespace creamyLib
 {
@@ -14,17 +14,18 @@ namespace creamyLib::engine
 {
     class Scene;
 
-    class Actor
+    class Actor : public object::EngineObject
     {
+
     protected:
-        Scene* owner;
-        TransformComponent* transform;
-        Component::ComponentCollection components;
+        TransformComponent transform;
+        std::vector<Component*> components;
 
     public:
+        using ActorPointer = Actor*;
         using ActorCollection = std::vector<Actor*>;
 
-        Actor(Scene* scene);
+        Actor(const object::EngineObjectConfig& config);
         virtual ~Actor();
 
         void InternalUpdate(float deltaTime); // 最初に呼ばれる
@@ -35,8 +36,8 @@ namespace creamyLib::engine
         void AddComponent(Component* component);
         void RemoveComponent(Component* component);
 
-        TransformComponent* GetTransform() const;
-        Scene* GetOwner() const;
-        Application* GetApplication() const;
+        [[nodiscard]] TransformComponent& GetTransform();
+        [[nodiscard]] Scene* GetOwner() const;
+        [[nodiscard]] Application* GetApplication() const override;
     };
 }

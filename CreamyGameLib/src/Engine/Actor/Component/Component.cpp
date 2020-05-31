@@ -1,26 +1,33 @@
 #include "Engine/Actor/Component/Component.hpp"
 
 #include "Engine/Actor/Actor.hpp"
+#include "Engine/Actor/Component/ComponentConfig.hpp"
 
 namespace creamyLib::engine
 {
-    Component::Component(Actor* owner, int updatePriority) : owner(owner), updatePriority(updatePriority)
+    Component::Component(const ComponentConfig& config) : EngineObject(static_cast<object::EngineObjectConfig>(config))
     {
-        this->owner->AddComponent(this);
+        if (config.isInject)
+            GetOwner()->AddComponent(this);
     }
 
     Component::~Component()
     {
-        this->owner->RemoveComponent(this);
+        GetOwner()->RemoveComponent(this);
     }
 
     int Component::GetUpdatePriority() const
     {
-        return this->updatePriority;
+        return this->config.priority;
     }
 
     Actor* Component::GetOwner() const
     {
-        return owner;
+        return dynamic_cast<Actor*>(config.owner);
+    }
+
+    Application* Component::GetApplication() const
+    {
+        return GetOwner()->GetApplication();
     }
 }
