@@ -16,9 +16,9 @@ void MoveActor(creamyLib::engine::UserComponent* component, float deltaTime, flo
 
 int main(int argc, char** argv)
 {
-    auto game = creamyLib::Application::Create(creamyLib::ApplicationConfig{ "TestGame", 1024, 768 });
+    auto l_Game = creamyLib::Application::Create(creamyLib::ApplicationConfig{ "TestGame", 1024, 768 });
 
-    auto l_World = creamyLib::engine::World(&game, creamyLib::engine::WorldConfiguration{});
+    auto l_World = creamyLib::engine::World(&l_Game, creamyLib::engine::WorldConfiguration{});
     auto l_Scene = creamyLib::engine::Scene({ &l_World });
     auto l_RedBoxActor = creamyLib::engine::Actor({ &l_Scene });
     auto l_BlueBoxActor = creamyLib::engine::Actor({ &l_Scene });
@@ -41,8 +41,8 @@ int main(int argc, char** argv)
     auto l_RedBoxMove = creamyLib::engine::UserComponent([](creamyLib::engine::UserComponent* component, float deltaTime) { MoveActor(component, deltaTime, 40.f); }, {{ &l_RedBoxActor }});
     auto l_BlueBoxMove = creamyLib::engine::UserComponent([](creamyLib::engine::UserComponent* component, float deltaTime) { MoveActor(component, deltaTime, 45.f); }, {{ &l_BlueBoxActor }});
 
-    game.Start(&l_World);
-    game.Quit();
+    l_Game.Start(&l_World);
+    l_Game.Quit();
 
     return 0;
 }

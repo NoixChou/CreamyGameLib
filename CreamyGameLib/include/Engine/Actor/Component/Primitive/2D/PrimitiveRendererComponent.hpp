@@ -9,6 +9,9 @@ namespace creamyLib::engine
 {
     class PrimitiveRendererComponent : public Component
     {
+    private:
+        impl::LibHandlePointer implLibHandle = nullptr;
+
     public:
         enum class PrimitiveType
         {

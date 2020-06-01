@@ -9,13 +9,16 @@
 namespace creamyLib::engine
 {
     PrimitiveRendererComponent::PrimitiveRendererComponent(PrimitiveType primitive, const math::Vector2& size, const Color& color, const ComponentConfig& config)
-    : Component(config), primitive(primitive), size(size), color(color), isFill(true) { }
+    : Component(config), primitive(primitive), size(size), color(color), isFill(true)
+    {
+        implLibHandle = GetOwner()->GetApplication()->GetLibHandle();
+    }
 
     void PrimitiveRendererComponent::Update(float deltaTime)
     {
         if(primitive == PrimitiveType::rect)
         {
-            impl::DrawRect(GetOwner()->GetApplication()->GetLibHandle(), GetOwner()->GetTransform().position.ToVector2(), size, color, isFill);
+            impl::DrawRect(implLibHandle, GetOwner()->GetTransform().position.ToVector2(), size, color, isFill);
         }
     }
 }
