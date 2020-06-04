@@ -1,12 +1,13 @@
 #pragma once
 
 #include <string>
+#include <utility>
 
 namespace creamyLib
 {
     struct Message
     {
-        Message(const std::string& description) : description(description) {}
+        Message(std::string description) : description(std::move(description)) {}
 
         std::string description;
     };

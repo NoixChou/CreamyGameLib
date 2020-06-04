@@ -12,8 +12,8 @@ namespace creamyLib::impl
     void DrawRect(const LibHandlePointer& libHandle, const math::Vector2& position, const math::Vector2& size, const Color& color, bool isFill)
     {
         const auto [r, g, b, a] = color;
-        const auto [x, y] = position;
-        const auto [width, height] = size;
+        const auto [x, y] = position.ToInteger();
+        const auto [width, height] = size.ToInteger();
 
         SDL_SetRenderDrawColor(libHandle->sdlRenderer, r, g, b, a);
         SDL_Rect l_Rect{ x, y, width, height };

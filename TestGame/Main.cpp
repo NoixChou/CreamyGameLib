@@ -10,7 +10,6 @@
 
 void MoveActor(creamyLib::engine::UserComponent* component, float deltaTime, float moveSpeed)
 {
-    float a = component->GetOwner()->GetTransform().position.x;
     component->GetOwner()->GetTransform().position.x += moveSpeed * deltaTime;
 }
 
