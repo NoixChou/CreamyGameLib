@@ -11,7 +11,8 @@ namespace creamyLib::math
         float z;
 
         constexpr Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
-        Vector2 ToVector2() const
+
+        [[nodiscard]] Vector2 ToVector2() const
         {
             return Vector2(x, y);
         }

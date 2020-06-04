@@ -20,7 +20,7 @@ namespace creamyLib::engine
 
         virtual void Update(float deltaTime) = 0;
 
-        int GetUpdatePriority() const;
+        [[nodiscard]] int GetUpdatePriority() const;
         [[nodiscard]] Actor* GetOwner() const;
         [[nodiscard]] Application* GetApplication() const override;
     };
