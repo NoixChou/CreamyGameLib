@@ -5,7 +5,7 @@
 
 namespace creamyLib::engine
 {
-    Component::Component(const ComponentConfig& config) : EngineObject(static_cast<object::EngineObjectConfig>(config))
+    Component::Component(const ComponentConfig& config) : EngineObject(static_cast<const object::EngineObjectConfig&>(config))
     {
         if (config.isInject)
             GetOwner()->AddComponent(this);
