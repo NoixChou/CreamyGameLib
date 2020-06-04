@@ -10,6 +10,11 @@ namespace creamyLib::engine
         
     }
 
+    World::~World()
+    {
+        scenes.clear();
+    }
+
     void World::Update(float deltaTime)
     {
         UpdateScenes(deltaTime);

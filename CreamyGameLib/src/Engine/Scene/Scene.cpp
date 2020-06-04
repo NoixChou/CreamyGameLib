@@ -12,7 +12,8 @@ namespace creamyLib::engine
 
     Scene::~Scene()
     {
-        GetOwner()->AddScene(this);
+        GetOwner()->RemoveScene(this);
+        actors.clear();
     }
 
     void Scene::Update(float deltaTime)

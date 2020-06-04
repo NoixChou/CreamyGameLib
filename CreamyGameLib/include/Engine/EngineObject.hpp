@@ -12,6 +12,7 @@ namespace creamyLib::engine::object
 
     public:
         EngineObject(const EngineObjectConfig& config);
+        virtual ~EngineObject() = default;
 
         [[nodiscard]] virtual Application* GetApplication() const = 0;
     };

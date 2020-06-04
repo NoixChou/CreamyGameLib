@@ -12,6 +12,7 @@ namespace creamyLib::engine
     Actor::~Actor()
     {
         GetOwner()->RemoveActor(this);
+        components.clear();
     }
 
     void Actor::InternalUpdate(float deltaTime)

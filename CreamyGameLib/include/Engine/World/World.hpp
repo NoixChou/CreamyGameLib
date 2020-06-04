@@ -25,6 +25,7 @@ namespace creamyLib::engine
 
     public:
         World(Application* app, WorldConfiguration config = {});
+        ~World();
 
         void Update(float deltaTime);
 
