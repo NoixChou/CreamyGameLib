@@ -4,6 +4,8 @@
 #include "Finalizer.hpp"
 #include "Config.hpp"
 
+#include <iostream>
+
 #include "SDL.h"
 
 namespace creamyLib::impl
@@ -33,7 +35,7 @@ namespace creamyLib::impl
         SDL_SetRenderDrawBlendMode(l_Renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(l_Renderer, 0, 0, 0, 255);
 
-        SDL_Log("SDL Initialized");
+        std::cout << "SDL initialized" << std::endl;
 
         return new LibHandle{ l_Window, l_Renderer };
     }

@@ -27,7 +27,7 @@ namespace creamyLib::impl
             return nullptr;
         }
 
-        std::cout << "DxLib Initialized" << std::endl;
+        std::cout << "DxLib initialized" << std::endl;
 
         return new LibHandle{};
     }
