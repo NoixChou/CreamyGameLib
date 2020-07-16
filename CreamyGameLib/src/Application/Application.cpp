@@ -40,8 +40,6 @@ namespace creamyLib
         {
             impl::WindowEvent::Process();
 
-            impl::RenderService::ClearBuffer(libHandle, Color(255, 255, 255));
-
             engine::DeltaTime::Update();
             const float l_DeltaTime = engine::DeltaTime::Get();
             startWorld->Update(l_DeltaTime);

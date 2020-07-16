@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 {
     auto l_Game = Application::Create(ApplicationConfig{ "TestGame", 1024, 768 });
 
-    auto l_World = engine::World(&l_Game, engine::WorldConfiguration{});
+    auto l_World = engine::World(&l_Game, engine::WorldConfiguration{ Color(255, 255, 255) });
     auto l_Scene = engine::Scene({ &l_World });
     auto l_RedBoxActor = engine::Actor({ &l_Scene });
     auto l_BlueBoxActor = engine::Actor({ &l_Scene });

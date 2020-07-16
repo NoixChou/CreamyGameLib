@@ -17,6 +17,7 @@ namespace creamyLib::engine
 
     void World::Update(float deltaTime)
     {
+        impl::RenderService::ClearBuffer(GetApplication()->GetLibHandle(), configuration.backgroundColor);
         UpdateScenes(deltaTime);
     }
 
