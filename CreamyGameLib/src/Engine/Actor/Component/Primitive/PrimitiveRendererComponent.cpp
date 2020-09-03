@@ -9,7 +9,7 @@
 namespace creamyLib::engine
 {
     PrimitiveRendererComponent::PrimitiveRendererComponent(PrimitiveType primitive, const math::Vector2& size, const Color& color, const ComponentConfig& config)
-    : Component(config), primitive(primitive), size(size), color(color), isFill(true)
+        : Component(config), primitive(primitive), size(size), color(color), isFill(true)
     {
         implLibHandle = GetOwner()->GetApplication()->GetLibHandle();
     }

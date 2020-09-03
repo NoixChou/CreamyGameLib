@@ -5,7 +5,7 @@
 
 namespace creamyLib::engine
 {
-    World::World(Application* app, const WorldConfiguration config) : EngineObject({ nullptr }), application(app), configuration(config)
+    World::World(Application* app, const WorldConfiguration& config) : EngineObject({ nullptr }), application(app), configuration(config)
     {
         
     }

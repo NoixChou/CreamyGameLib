@@ -42,6 +42,18 @@
     <ClInclude Include="include\DrawPrimitive.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\Resource\TextureResource.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource\ResourceInterface.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource\ResourceLoader.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DrawResource.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DxLib\DxLibEvent.cpp">
@@ -72,6 +84,24 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\DxLib\DxLibDrawPrimitive.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDL\Resource\SDLResourceLoader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DxLib\Resource\DxLibResourceLoader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DxLib\Resource\DxLibTextureResource.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDL\Resource\SDLTextureResource.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDL\SDLDrawResource.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DxLib\DxLibDrawResource.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

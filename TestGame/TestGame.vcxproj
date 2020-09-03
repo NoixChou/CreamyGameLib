@@ -226,10 +226,11 @@
       <AdditionalDependencies>CreamyGameLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
-      <Command>copy "$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll" "$(OutDir)\"</Command>
+      <Command>copy "$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll" "$(OutDir)\"
+copy "$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2_image.dll" "$(OutDir)\"</Command>
       <Message>Copy SDL2.dll</Message>
       <Outputs>$(OutDir)\SDL2.dll</Outputs>
-      <Inputs>$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll</Inputs>
+      <Inputs>$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll;$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2_image.dll</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|x64'">
@@ -320,10 +321,11 @@
       <AdditionalDependencies>CreamyGameLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
-      <Command>copy "$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll" "$(OutDir)\"</Command>
+      <Command>copy "$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll" "$(OutDir)\"
+copy "$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2_image.dll" "$(OutDir)\"</Command>
       <Message>Copy SDL2.dll</Message>
       <Outputs>$(OutDir)\SDL2.dll</Outputs>
-      <Inputs>$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll</Inputs>
+      <Inputs>$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2.dll;$(SolutionDir)External\SDL\lib\$(PlatformShortName)\SDL2_image.dll</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|x64'">

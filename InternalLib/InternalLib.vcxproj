@@ -37,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="include\Config.hpp" />
     <ClInclude Include="include\DrawPrimitive.hpp" />
+    <ClInclude Include="include\DrawResource.hpp" />
     <ClInclude Include="include\Event.hpp" />
     <ClInclude Include="include\Finalizer.hpp" />
     <ClInclude Include="include\Handle.hpp" />
@@ -44,14 +45,23 @@
     <ClInclude Include="include\Input.hpp" />
     <ClInclude Include="include\Render.hpp" />
     <ClInclude Include="include\ExternalLibrary.hpp" />
+    <ClInclude Include="include\Resource\ResourceInterface.hpp" />
+    <ClInclude Include="include\Resource\ResourceLoader.hpp" />
+    <ClInclude Include="include\Resource\TextureResource.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DxLib\DxLibDrawPrimitive.cpp" />
+    <ClCompile Include="src\DxLib\DxLibDrawResource.cpp" />
     <ClCompile Include="src\DxLib\DxLibEvent.cpp" />
     <ClCompile Include="src\DxLib\DxLibFinalizer.cpp" />
     <ClCompile Include="src\DxLib\DxLibInitializer.cpp" />
     <ClCompile Include="src\DxLib\DxLibRender.cpp" />
+    <ClCompile Include="src\DxLib\Resource\DxLibResourceLoader.cpp" />
+    <ClCompile Include="src\DxLib\Resource\DxLibTextureResource.cpp" />
+    <ClCompile Include="src\SDL\Resource\SDLResourceLoader.cpp" />
+    <ClCompile Include="src\SDL\Resource\SDLTextureResource.cpp" />
     <ClCompile Include="src\SDL\SDLDrawPrimitive.cpp" />
+    <ClCompile Include="src\SDL\SDLDrawResource.cpp" />
     <ClCompile Include="src\SDL\SDLEvent.cpp" />
     <ClCompile Include="src\SDL\SDLFinalizer.cpp" />
     <ClCompile Include="src\SDL\SDLInitializer.cpp" />
@@ -227,7 +237,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;..\External\SDL\lib\$(PlatformShortName)\SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-DxLib|x64'">
@@ -383,7 +393,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\External\SDL\lib\$(PlatformShortName)\SDL2.lib;..\External\SDL\lib\$(PlatformShortName)\SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-DxLib|x64'">

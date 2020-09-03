@@ -4,7 +4,7 @@
 
 namespace creamyLib::engine
 {
-    Actor::Actor(const object::EngineObjectConfig& config) : EngineObject(config), transform(TransformComponent(math::Vector3(0, 0, 0), { {this}, false}))
+    Actor::Actor(const ActorConfig& config) : EngineObject(config), transform(TransformComponent(math::Vector3(0, 0, 0), { {this}, false}))
     {
         GetOwner()->AddActor(this);
     }

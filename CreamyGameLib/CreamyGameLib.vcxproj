@@ -37,13 +37,17 @@
   <ItemGroup>
     <ClInclude Include="include\Application\Application.hpp" />
     <ClInclude Include="include\Application\ApplicationConfig.hpp" />
-    <ClInclude Include="include\Engine\Actor\ActorParamater.hpp" />
+    <ClInclude Include="include\Engine\Actor\ActorConfig.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\ComponentConfig.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Primitive\2D\PrimitiveRendererComponent.hpp" />
+    <ClInclude Include="include\Engine\Actor\Component\Render\TextureRendererComponent.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Transform\TransformComponent.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\UserComponent.hpp" />
     <ClInclude Include="include\Engine\EngineObject.hpp" />
     <ClInclude Include="include\Engine\EngineObjectConfig.hpp" />
+    <ClInclude Include="include\Engine\Resource\Resource.hpp" />
+    <ClInclude Include="include\Engine\Resource\ResourceManager.hpp" />
+    <ClInclude Include="include\Engine\Resource\Texture.hpp" />
     <ClInclude Include="include\Engine\Time\DeltaTime.hpp" />
     <ClInclude Include="include\Engine\Actor\Actor.hpp" />
     <ClInclude Include="include\Engine\Actor\Component\Component.hpp" />
@@ -52,6 +56,7 @@
     <ClInclude Include="include\Engine\World\WorldConfiguration.hpp" />
     <ClInclude Include="include\Exception\Application\InitializationFailedException.hpp" />
     <ClInclude Include="include\Exception\Exception.hpp" />
+    <ClInclude Include="include\Exception\Resource\ResourceLoadFailedException.hpp" />
     <ClInclude Include="include\Math\Vector2.hpp" />
     <ClInclude Include="include\Math\Vector3.hpp" />
     <ClInclude Include="include\Util\Color.hpp" />
@@ -62,9 +67,13 @@
     <ClCompile Include="src\Engine\Actor\Actor.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\Component.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\Primitive\PrimitiveRendererComponent.cpp" />
+    <ClCompile Include="src\Engine\Actor\Component\Render\TextureRendererComponent.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\Transform\TransformComponent.cpp" />
     <ClCompile Include="src\Engine\Actor\Component\UserComponent.cpp" />
     <ClCompile Include="src\Engine\EngineObject.cpp" />
+    <ClCompile Include="src\Engine\Resource\Resource.cpp" />
+    <ClCompile Include="src\Engine\Resource\ResourceManager.cpp" />
+    <ClCompile Include="src\Engine\Resource\Texture.cpp" />
     <ClCompile Include="src\Engine\Scene\Scene.cpp" />
     <ClCompile Include="src\Engine\Time\DeltaTime.cpp" />
     <ClCompile Include="src\Engine\World\World.cpp" />
@@ -295,7 +304,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;CREAMY_USE_DXLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>PreCompiledHeader.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -403,7 +412,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;CREAMY_USE_DXLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>PreCompiledHeader.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>

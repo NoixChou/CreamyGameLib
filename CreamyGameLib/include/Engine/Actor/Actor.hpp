@@ -4,6 +4,7 @@
 
 #include "Component/Transform/TransformComponent.hpp"
 #include "Engine/EngineObject.hpp"
+#include "Engine/Actor/ActorConfig.hpp"
 
 namespace creamyLib
 {
@@ -12,6 +13,7 @@ namespace creamyLib
 
 namespace creamyLib::engine
 {
+    struct ActorConfig;
     class Scene;
 
     class Actor : public object::EngineObject
@@ -25,7 +27,7 @@ namespace creamyLib::engine
         using ActorPointer = Actor*;
         using ActorCollection = std::vector<Actor*>;
 
-        Actor(const object::EngineObjectConfig& config);
+        Actor(const ActorConfig& config);
         virtual ~Actor();
 
         void InternalUpdate(float deltaTime); // 最初に呼ばれる

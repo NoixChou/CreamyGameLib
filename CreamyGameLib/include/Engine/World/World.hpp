@@ -24,7 +24,7 @@ namespace creamyLib::engine
         WorldConfiguration configuration;
 
     public:
-        World(Application* app, WorldConfiguration config = {});
+        World(Application* app, const WorldConfiguration& config = {});
         ~World();
 
         void Update(float deltaTime);

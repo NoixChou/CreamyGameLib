@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "DrawResource.hpp"
 #include "Application/ApplicationConfig.hpp"
 #include "Engine/World/World.hpp"
 
@@ -10,12 +11,13 @@
 #include "Exception/Application/InitializationFailedException.hpp"
 
 #include "Engine/Time/DeltaTime.hpp"
-#include "Util/Color.hpp"
+#include "Engine/Resource/ResourceManager.hpp"
 
 namespace creamyLib
 {
     Application::Application(const impl::LibHandlePointer libHandle) : libHandle(libHandle)
     {
+        engine::resource::ResourceManager::Initialize(libHandle);
     }
 
     Application Application::Create(const ApplicationConfig& applicationConfig)
@@ -27,14 +29,16 @@ namespace creamyLib
             throw exception::InitializationFailedException();
         }
 
+        engine::resource::ResourceManager::Initialize(l_LibHandle);
+
         return Application(l_LibHandle);
     }
 
     void Application::Start(engine::World* startWorld)
     {
-        std::cout << "Application started" << std::endl;
-
         engine::DeltaTime::Init();
+
+        std::cout << "Application started" << std::endl;
 
         while(isRunning)
         {
@@ -52,7 +56,9 @@ namespace creamyLib
 
     void Application::Quit() const
     {
-        impl::Finalize(this->libHandle);
+        engine::resource::ResourceManager::Finalize();
+
+        impl::Finalize(libHandle);
     }
 
     impl::LibHandlePointer Application::GetLibHandle() const
