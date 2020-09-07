@@ -11,6 +11,8 @@
 #include "Engine/World/World.hpp"
 #include "Engine/World/WorldConfiguration.hpp"
 
+#include "Exception/Resource/ResourceLoadFailedException.hpp"
+
 using namespace creamyLib;
 
 void MoveActor(engine::UserComponent* component, float deltaTime, float moveSpeed)
@@ -46,8 +48,18 @@ int main(int argc, char** argv)
     auto l_BlueBoxMove = engine::UserComponent([](engine::UserComponent* component, float deltaTime) { MoveActor(component, deltaTime, 45.f); }, {{ &l_BlueBoxActor }});
 
     // テクスチャレンダラーコンポーネント
+    engine::resource::Texture* l_Texture;
+    try {
+        l_Texture = engine::resource::ResourceManager::GetInstance()->GetResourceTextureFromFile("test.png");
+    }catch(exception::ResourceLoadFailedException& e)
+    {
+        std::cout << "read error: texture \"" << e.GetFileName() << "\"" << std::endl;
+        std::cout << e.what() << std::endl;
+
+        return 0;
+    }
     auto l_RedBoxTexture = engine::TextureRendererComponent(
-        engine::resource::ResourceManager::GetInstance()->GetResourceTextureFromFile("test.png"),
+        l_Texture,
         math::Vector2(100, 100),
         { {&l_RedBoxActor } }
     );
