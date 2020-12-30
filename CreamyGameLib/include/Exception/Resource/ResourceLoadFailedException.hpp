@@ -10,7 +10,7 @@ namespace creamyLib::exception
         std::string fileName_;
 
     public:
-        ResourceLoadFailedException(const std::string& resourceFileName = "", const std::string& message = "") : Exception(message), fileName_(resourceFileName) {}
+        ResourceLoadFailedException(std::string_view resourceFileName = "", const std::string& message = "") : Exception(message), fileName_(resourceFileName) {}
 
         std::string getFileName() const
         {
