@@ -4,60 +4,60 @@
 
 namespace creamyLib::engine
 {
-    Actor::Actor(const ActorConfig& config) : EngineObject(config), transform(TransformComponent(math::Vector3(0, 0, 0), { {this}, false}))
+    Actor::Actor(const ActorConfig& config) : EngineObject(config), transform_(TransformComponent(math::Vector3(0, 0, 0), { {this}, false}))
     {
-        GetOwner()->AddActor(this);
+        getOwner()->addActor(this);
     }
 
     Actor::~Actor()
     {
-        GetOwner()->RemoveActor(this);
-        components.clear();
+        getOwner()->removeActor(this);
+        components_.clear();
     }
 
-    void Actor::InternalUpdate(float deltaTime)
+    void Actor::internalUpdate(float deltaTime)
     {
-        UpdateComponents(deltaTime);
-        Update(deltaTime);
+        updateComponents(deltaTime);
+        update(deltaTime);
     }
 
-    void Actor::UpdateComponents(float deltaTime)
+    void Actor::updateComponents(float deltaTime)
     {
-        for(const auto& l_Component : components)
+        for(const auto& component : components_)
         {
-            l_Component->Update(deltaTime);
+            component->update(deltaTime);
         }
     }
 
-    void Actor::AddComponent(Component* component)
+    void Actor::addComponent(Component* component)
     {
         if (!component) return;
-        components.emplace_back(component);
+        components_.emplace_back(component);
     }
 
-    void Actor::RemoveComponent(Component* component)
+    void Actor::removeComponent(Component* component)
     {
         if (!component) return;
-        const auto l_ComponentIterator = std::find(components.begin(), components.end(), component);
+        const auto componentIterator = std::find(components_.begin(), components_.end(), component);
 
-        if (l_ComponentIterator != components.end())
+        if (componentIterator != components_.end())
         {
-            components.erase(l_ComponentIterator);
+            components_.erase(componentIterator);
         }
     }
 
-    TransformComponent& Actor::GetTransform()
+    TransformComponent& Actor::getTransform()
     {
-        return transform;
+        return transform_;
     }
 
-    Scene* Actor::GetOwner() const
+    Scene* Actor::getOwner() const
     {
-        return dynamic_cast<Scene*>(config.owner);
+        return dynamic_cast<Scene*>(config_.owner);
     }
 
-    Application* Actor::GetApplication() const
+    Application* Actor::getApplication() const
     {
-        return GetOwner()->GetApplication();
+        return getOwner()->getApplication();
     }
 }

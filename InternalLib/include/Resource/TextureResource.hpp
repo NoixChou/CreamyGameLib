@@ -29,6 +29,6 @@ namespace creamyLib::impl::resource
         TextureResource(TextureRawHandle* const handle, int width, int height) : handle(handle), width(width), height(height) {}
         ~TextureResource();
 
-        void Destroy() override;
+        void destroy() override;
     };
 }

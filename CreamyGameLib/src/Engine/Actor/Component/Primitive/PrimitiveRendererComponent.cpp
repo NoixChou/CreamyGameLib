@@ -11,14 +11,14 @@ namespace creamyLib::engine
     PrimitiveRendererComponent::PrimitiveRendererComponent(PrimitiveType primitive, const math::Vector2& size, const Color& color, const ComponentConfig& config)
         : Component(config), primitive(primitive), size(size), color(color), isFill(true)
     {
-        implLibHandle = GetOwner()->GetApplication()->GetLibHandle();
+        implLibHandle_ = getOwner()->getApplication()->getLibHandle();
     }
 
-    void PrimitiveRendererComponent::Update(float deltaTime)
+    void PrimitiveRendererComponent::update(float deltaTime)
     {
         if(primitive == PrimitiveType::rect)
         {
-            impl::DrawRect(implLibHandle, GetOwner()->GetTransform().position.ToVector2(), size, color, isFill);
+            impl::DrawRect(implLibHandle_, getOwner()->getTransform().position.toVector2(), size, color, isFill);
         }
     }
 }

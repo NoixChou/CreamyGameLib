@@ -6,14 +6,14 @@
 
 namespace creamyLib::engine::resource
 {
-    Resource::Resource(std::any resource): resource(std::move(resource)) {}
+    Resource::Resource(std::any resource): resource_(std::move(resource)) {}
 
     Resource::~Resource()
     {
     }
 
-    std::any& Resource::GetResource()
+    std::any& Resource::getResource()
     {
-        return resource;
+        return resource_;
     }
 }

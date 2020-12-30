@@ -17,27 +17,27 @@ namespace creamyLib::impl
             return nullptr;
         }
 
-        SDL_Window* l_Window = SDL_CreateWindow(libConfig.windowTitle.c_str(), libConfig.windowPosX, libConfig.windowPosY, libConfig.windowWidth, libConfig.windowHeight, libConfig.windowFlags);
+        SDL_Window* window = SDL_CreateWindow(libConfig.windowTitle.c_str(), libConfig.windowPosX, libConfig.windowPosY, libConfig.windowWidth, libConfig.windowHeight, libConfig.windowFlags);
 
-        if(!l_Window)
+        if(!window)
         {
             return nullptr;
         }
 
-        SDL_Renderer* l_Renderer = SDL_CreateRenderer(l_Window, -1, SDL_RENDERER_ACCELERATED);
+        SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-        if(!l_Renderer)
+        if(!renderer)
         {
-            Finalize(new LibHandle{ l_Window, nullptr });
+            Finalize(new LibHandle{ window, nullptr });
             return nullptr;
         }
 
-        SDL_SetRenderDrawBlendMode(l_Renderer, SDL_BLENDMODE_BLEND);
-        SDL_SetRenderDrawColor(l_Renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
         std::cout << "SDL initialized" << std::endl;
 
-        return new LibHandle{ l_Window, l_Renderer };
+        return new LibHandle{ window, renderer };
     }
 }
 

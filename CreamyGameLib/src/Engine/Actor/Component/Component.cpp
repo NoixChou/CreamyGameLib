@@ -8,26 +8,26 @@ namespace creamyLib::engine
     Component::Component(const ComponentConfig& config) : EngineObject(static_cast<const object::EngineObjectConfig&>(config))
     {
         if (config.isInject)
-            GetOwner()->AddComponent(this);
+            getOwner()->addComponent(this);
     }
 
     Component::~Component()
     {
-        GetOwner()->RemoveComponent(this);
+        getOwner()->removeComponent(this);
     }
 
-    int Component::GetUpdatePriority() const
+    int Component::getUpdatePriority() const
     {
-        return this->config.priority;
+        return this->config_.priority;
     }
 
-    Actor* Component::GetOwner() const
+    Actor* Component::getOwner() const
     {
-        return dynamic_cast<Actor*>(config.owner);
+        return dynamic_cast<Actor*>(config_.owner);
     }
 
-    Application* Component::GetApplication() const
+    Application* Component::getApplication() const
     {
-        return GetOwner()->GetApplication();
+        return getOwner()->getApplication();
     }
 }

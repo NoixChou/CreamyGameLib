@@ -8,7 +8,7 @@
 
 namespace creamyLib::impl
 {
-    void RenderService::ClearBuffer(const LibHandlePointer& libHandle, const Color& color)
+    void RenderService::clearBuffer(const LibHandlePointer& libHandle, const Color& color)
     {
         const auto [r, g, b, a] = color;
         DxLib::SetBackgroundColor(r, g, b, a);
@@ -16,7 +16,7 @@ namespace creamyLib::impl
         DxLib::clsDx();
     }
 
-    void RenderService::PresentBuffer(const LibHandlePointer& libHandle)
+    void RenderService::presentBuffer(const LibHandlePointer& libHandle)
     {
         DxLib::ScreenFlip();
     }

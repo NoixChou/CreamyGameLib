@@ -18,10 +18,10 @@ namespace creamyLib::engine
         Component(const ComponentConfig& config);
         virtual ~Component();
 
-        virtual void Update(float deltaTime) = 0;
+        virtual void update(float deltaTime) = 0;
 
-        [[nodiscard]] int GetUpdatePriority() const;
-        [[nodiscard]] Actor* GetOwner() const;
-        [[nodiscard]] Application* GetApplication() const override;
+        [[nodiscard]] int getUpdatePriority() const;
+        [[nodiscard]] Actor* getOwner() const;
+        [[nodiscard]] Application* getApplication() const override;
     };
 }

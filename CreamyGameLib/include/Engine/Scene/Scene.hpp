@@ -12,7 +12,7 @@ namespace creamyLib::engine
     class Scene : public object::EngineObject
     {
     protected:
-        std::vector<Actor*> actors;
+        std::vector<Actor*> actors_;
 
     public:
         using ScenePointer = Scene*;
@@ -21,13 +21,13 @@ namespace creamyLib::engine
         Scene(const object::EngineObjectConfig& config);
         ~Scene();
 
-        void Update(float deltaTime);
-        void UpdateActors(float deltaTime);
+        void update(float deltaTime);
+        void updateActors(float deltaTime);
 
-        void AddActor(Actor* actor);
-        void RemoveActor(Actor* actor);
+        void addActor(Actor* actor);
+        void removeActor(Actor* actor);
 
-        [[nodiscard]] World* GetOwner() const;
-        [[nodiscard]] Application* GetApplication() const override;
+        [[nodiscard]] World* getOwner() const;
+        [[nodiscard]] Application* getApplication() const override;
     };
 }

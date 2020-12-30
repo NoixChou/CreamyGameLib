@@ -13,18 +13,18 @@ namespace creamyLib
     class Application
     {
     private:
-        impl::LibHandlePointer libHandle;
+        impl::LibHandlePointer libHandle_;
 
-        bool isRunning = true;
+        bool isRunning_ = true;
 
         Application(impl::LibHandlePointer libHandle);
 
     public:
-        static Application Create(const ApplicationConfig& applicationConfig);
+        static Application create(const ApplicationConfig& applicationConfig);
 
-        void Start(engine::World* startWorld);
-        void Quit() const;
+        void start(engine::World* startWorld);
+        void quit() const;
 
-        [[nodiscard]] impl::LibHandlePointer GetLibHandle() const;
+        [[nodiscard]] impl::LibHandlePointer getLibHandle() const;
     };
 }

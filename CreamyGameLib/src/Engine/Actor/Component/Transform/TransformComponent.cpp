@@ -8,7 +8,7 @@ namespace creamyLib::engine
 
     }
 
-    void TransformComponent::Update(float deltaTime)
+    void TransformComponent::update(float deltaTime)
     {
         
     }

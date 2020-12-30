@@ -2,5 +2,5 @@
 
 namespace creamyLib::engine::object
 {
-    EngineObject::EngineObject(const EngineObjectConfig& config) : config(config) {}
+    EngineObject::EngineObject(const EngineObjectConfig& config) : config_(config) {}
 }

@@ -17,23 +17,23 @@ namespace creamyLib::engine
     class World : public object::EngineObject
     {
     private:
-        std::vector<Scene*> scenes;
+        std::vector<Scene*> scenes_;
 
     protected:
-        Application* application;
-        WorldConfiguration configuration;
+        Application* application_;
+        WorldConfiguration configuration_;
 
     public:
         World(Application* app, const WorldConfiguration& config = {});
         ~World();
 
-        void Update(float deltaTime);
+        void update(float deltaTime);
 
-        void UpdateScenes(float deltaTime);
+        void updateScenes(float deltaTime);
 
-        void AddScene(Scene* scene);
-        void RemoveScene(Scene* scene);
+        void addScene(Scene* scene);
+        void removeScene(Scene* scene);
 
-        [[nodiscard]] Application* GetApplication() const override;
+        [[nodiscard]] Application* getApplication() const override;
     };
 }

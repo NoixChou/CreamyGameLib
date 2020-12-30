@@ -8,14 +8,14 @@
 
 namespace creamyLib::impl
 {
-    void RenderService::ClearBuffer(const LibHandlePointer& libHandle, const Color& color)
+    void RenderService::clearBuffer(const LibHandlePointer& libHandle, const Color& color)
     {
         const auto [r, g, b, a] = color;
         SDL_SetRenderDrawColor(libHandle->sdlRenderer, r, g, b, a);
         SDL_RenderClear(libHandle->sdlRenderer);
     }
 
-    void RenderService::PresentBuffer(const LibHandlePointer& libHandle)
+    void RenderService::presentBuffer(const LibHandlePointer& libHandle)
     {
         SDL_RenderPresent(libHandle->sdlRenderer);
     }

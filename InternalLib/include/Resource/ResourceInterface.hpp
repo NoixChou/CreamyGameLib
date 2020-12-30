@@ -5,10 +5,10 @@ namespace creamyLib::impl::resource
     class ResourceInterface
     {
     private:
-        bool isAvailable = false;
+        bool isAvailable_ = false;
 
     public:
         virtual ~ResourceInterface() = default;
-        virtual void Destroy() = 0;
+        virtual void destroy() = 0;
     };
 }

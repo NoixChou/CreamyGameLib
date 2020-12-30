@@ -7,52 +7,52 @@ namespace creamyLib::engine
 {
     Scene::Scene(const object::EngineObjectConfig& config) : EngineObject(config)
     {
-        GetOwner()->AddScene(this);
+        getOwner()->addScene(this);
     }
 
     Scene::~Scene()
     {
-        GetOwner()->RemoveScene(this);
-        actors.clear();
+        getOwner()->removeScene(this);
+        actors_.clear();
     }
 
-    void Scene::Update(float deltaTime)
+    void Scene::update(float deltaTime)
     {
-        UpdateActors(deltaTime);
+        updateActors(deltaTime);
     }
 
-    void Scene::UpdateActors(float deltaTime)
+    void Scene::updateActors(float deltaTime)
     {
-        for (auto* const l_Actor : actors)
+        for (auto* const actor : actors_)
         {
-            l_Actor->InternalUpdate(deltaTime);
+            actor->internalUpdate(deltaTime);
         }
     }
 
-    void Scene::AddActor(Actor* actor)
+    void Scene::addActor(Actor* actor)
     {
         if (!actor) return;
-        actors.emplace_back(actor);
+        actors_.emplace_back(actor);
     }
 
-    void Scene::RemoveActor(Actor* actor)
+    void Scene::removeActor(Actor* actor)
     {
         if (!actor) return;
-        const auto l_ActorIterator = std::find(actors.begin(), actors.end(), actor);
+        const auto actorIterator = std::find(actors_.begin(), actors_.end(), actor);
 
-        if (l_ActorIterator != actors.end())
+        if (actorIterator != actors_.end())
         {
-            actors.erase(l_ActorIterator);
+            actors_.erase(actorIterator);
         }
     }
 
-    World* Scene::GetOwner() const
+    World* Scene::getOwner() const
     {
-        return dynamic_cast<World*>(config.owner);
+        return dynamic_cast<World*>(config_.owner);
     }
 
-    Application* Scene::GetApplication() const
+    Application* Scene::getApplication() const
     {
-        return GetOwner()->GetApplication();
+        return getOwner()->getApplication();
     }
 }

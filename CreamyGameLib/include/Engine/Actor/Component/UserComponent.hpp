@@ -12,11 +12,11 @@ namespace creamyLib::engine
         using UpdateMethod = std::function<void(UserComponent*, float)> ;
 
     protected:
-        UpdateMethod updateMethod;
+        UpdateMethod updateMethod_;
 
     public:
         UserComponent(UpdateMethod update, const ComponentConfig& config);
 
-        void Update(float deltaTime) override;
+        void update(float deltaTime) override;
     };
 }

@@ -15,54 +15,54 @@
 
 namespace creamyLib
 {
-    Application::Application(const impl::LibHandlePointer libHandle) : libHandle(libHandle)
+    Application::Application(const impl::LibHandlePointer libHandle) : libHandle_(libHandle)
     {
-        engine::resource::ResourceManager::Initialize(libHandle);
+        engine::resource::ResourceManager::initialize(libHandle);
     }
 
-    Application Application::Create(const ApplicationConfig& applicationConfig)
+    Application Application::create(const ApplicationConfig& applicationConfig)
     {
-        auto* l_LibHandle = impl::Initialize(impl::LibConfig{ applicationConfig.applicationTitle, 100, 100, applicationConfig.windowWidth, applicationConfig.windowHeight, 0 });
+        auto* libHandle = impl::Initialize(impl::LibConfig{ applicationConfig.applicationTitle, 100, 100, applicationConfig.windowWidth, applicationConfig.windowHeight, 0 });
 
-        if(!l_LibHandle)
+        if(!libHandle)
         {
             throw exception::InitializationFailedException();
         }
 
-        engine::resource::ResourceManager::Initialize(l_LibHandle);
+        engine::resource::ResourceManager::initialize(libHandle);
 
-        return Application(l_LibHandle);
+        return Application(libHandle);
     }
 
-    void Application::Start(engine::World* startWorld)
+    void Application::start(engine::World* startWorld)
     {
-        engine::DeltaTime::Init();
+        engine::DeltaTime::init();
 
         std::cout << "Application started" << std::endl;
 
-        while(isRunning)
+        while(isRunning_)
         {
-            impl::WindowEvent::Process();
+            impl::WindowEvent::process();
 
-            engine::DeltaTime::Update();
-            const float l_DeltaTime = engine::DeltaTime::Get();
-            startWorld->Update(l_DeltaTime);
+            engine::DeltaTime::update();
+            const float deltaTime = engine::DeltaTime::get();
+            startWorld->update(deltaTime);
 
-            impl::RenderService::PresentBuffer(libHandle);
+            impl::RenderService::presentBuffer(libHandle_);
 
-            isRunning = !impl::WindowEvent::IsQuit();
+            isRunning_ = !impl::WindowEvent::isQuit();
         }
     }
 
-    void Application::Quit() const
+    void Application::quit() const
     {
-        engine::resource::ResourceManager::Finalize();
+        engine::resource::ResourceManager::finalize();
 
-        impl::Finalize(libHandle);
+        impl::Finalize(libHandle_);
     }
 
-    impl::LibHandlePointer Application::GetLibHandle() const
+    impl::LibHandlePointer Application::getLibHandle() const
     {
-        return libHandle;
+        return libHandle_;
     }
 }

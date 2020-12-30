@@ -6,16 +6,16 @@
 
 namespace creamyLib::impl
 {
-    bool WindowEvent::isQuit = false;
+    bool WindowEvent::isQuit_ = false;
 
-    void WindowEvent::Process()
+    void WindowEvent::process()
     {
-        isQuit = DxLib::ProcessMessage() == -1;
+        isQuit_ = DxLib::ProcessMessage() == -1;
     }
 
-    bool WindowEvent::IsQuit()
+    bool WindowEvent::isQuit()
     {
-        return isQuit;
+        return isQuit_;
     }
 }
 

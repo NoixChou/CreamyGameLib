@@ -10,22 +10,22 @@ namespace creamyLib::engine::resource
     class ResourceManager
     {
     private:
-        static ResourceManager* instance;
-        static impl::LibHandlePointer libHandle;
+        static ResourceManager* instance_;
+        static impl::LibHandlePointer libHandle_;
 
         ResourceManager(impl::LibHandlePointer libHandle);
         ~ResourceManager();
 
-        static void Initialize(impl::LibHandlePointer libHandle);
-        static void Finalize();
+        static void initialize(impl::LibHandlePointer libHandle);
+        static void finalize();
 
-        std::vector<Resource*> resources;
+        std::vector<Resource*> resources_;
 
         friend class Application;
 
     public:
-        static ResourceManager* GetInstance();
-        void RemoveResource(Resource* resource);
-        Texture* GetResourceTextureFromFile(const std::string& fileName);
+        static ResourceManager* getInstance();
+        void removeResource(Resource* resource);
+        Texture* getResourceTextureFromFile(const std::string& fileName);
     };
 }

@@ -10,7 +10,7 @@ namespace creamyLib::engine
     class PrimitiveRendererComponent : public Component
     {
     private:
-        impl::LibHandlePointer implLibHandle = nullptr;
+        impl::LibHandlePointer implLibHandle_ = nullptr;
 
     public:
         enum class PrimitiveType
@@ -25,6 +25,6 @@ namespace creamyLib::engine
 
         PrimitiveRendererComponent(PrimitiveType primitive, const math::Vector2& size, const Color& color, const ComponentConfig& config);
 
-        void Update(float deltaTime) override;
+        void update(float deltaTime) override;
     };
 }

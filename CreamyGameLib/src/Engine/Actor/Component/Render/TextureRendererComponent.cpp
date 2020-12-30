@@ -11,15 +11,15 @@ namespace creamyLib::engine
     TextureRendererComponent::TextureRendererComponent(resource::Texture* texture, const math::Vector2& size, const ComponentConfig& config)
         : Component(config), texture(texture), size(size)
     {
-        implLibHandle = GetOwner()->GetApplication()->GetLibHandle();
+        implLibHandle_ = getOwner()->getApplication()->getLibHandle();
     }
 
-    void TextureRendererComponent::Update(float deltaTime)
+    void TextureRendererComponent::update(float deltaTime)
     {
         if (!texture) return;
 
-        auto l_Scale = GetOwner()->GetTransform().scale.ToVector2();
-        auto l_Resource = texture->GetResource();
-        impl::DrawTexture2D(implLibHandle, l_Resource, GetOwner()->GetTransform().position.ToVector2(), math::Vector2(size.x / l_Resource.width * l_Scale.x, size.y / l_Resource.height * l_Scale.y));
+        auto l_Scale = getOwner()->getTransform().scale.toVector2();
+        auto l_Resource = texture->getResource();
+        impl::DrawTexture2D(implLibHandle_, l_Resource, getOwner()->getTransform().position.toVector2(), math::Vector2(size.x / l_Resource.width * l_Scale.x, size.y / l_Resource.height * l_Scale.y));
     }
 }

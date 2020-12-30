@@ -7,70 +7,70 @@
 
 namespace creamyLib::engine::resource
 {
-    ResourceManager* ResourceManager::instance = nullptr;
-    impl::LibHandlePointer ResourceManager::libHandle = nullptr;
+    ResourceManager* ResourceManager::instance_ = nullptr;
+    impl::LibHandlePointer ResourceManager::libHandle_ = nullptr;
 
     ResourceManager::ResourceManager(impl::LibHandlePointer libHandle)
     {
-        ResourceManager::libHandle = libHandle;
+        ResourceManager::libHandle_ = libHandle;
     }
 
     ResourceManager::~ResourceManager()
     {
-        for(auto* l_Resource : resources)
+        for(auto* resource : resources_)
         {
-            l_Resource->Destroy();
-            delete l_Resource;
+            resource->destroy();
+            delete resource;
         }
 
-        resources.clear();
+        resources_.clear();
     }
 
-    void ResourceManager::Initialize(impl::LibHandlePointer libHandle)
+    void ResourceManager::initialize(impl::LibHandlePointer libHandle)
     {
-        if(!instance)
+        if(!instance_)
         {
-            instance = new ResourceManager(libHandle);
+            instance_ = new ResourceManager(libHandle);
         }
     }
 
-    void ResourceManager::Finalize()
+    void ResourceManager::finalize()
     {
-        if (!instance) return;
+        if (!instance_) return;
 
-        delete instance;
+        delete instance_;
     }
 
-    ResourceManager* ResourceManager::GetInstance()
+    ResourceManager* ResourceManager::getInstance()
     {
-        return instance;
+        return instance_;
     }
 
-    void ResourceManager::RemoveResource(Resource* resource)
+    void ResourceManager::removeResource(Resource* resource)
     {
         if (!resource) return;
 
-        const auto l_Iterator = std::find(resources.begin(), resources.end(), resource);
+        const auto iterator = std::find(resources_.begin(), resources_.end(), resource);
 
-        if (l_Iterator != resources.end())
+        if (iterator != resources_.end())
         {
-            resource->DisposeMemory();
-            resources.erase(l_Iterator);
+            resource->disposeMemory();
+            resources_.erase(iterator);
         }
     }
 
-    Texture* ResourceManager::GetResourceTextureFromFile(const std::string& fileName)
+    Texture* ResourceManager::getResourceTextureFromFile(const std::string& fileName)
     {
-        auto l_Result = impl::resource::LoadTextureFromFile(ResourceManager::libHandle, fileName);
-        if(!l_Result)
+        auto result = impl::resource::LoadTextureFromFile(ResourceManager::libHandle_, fileName);
+        if(!result)
         {
             throw exception::ResourceLoadFailedException(fileName, "");
         }
 
-        auto* l_Texture = new Texture(l_Result.value());
+        auto* texture = new Texture(result.value());
 
-        resources.emplace_back(l_Texture);
+        resources_.emplace_back(texture);
 
-        return l_Texture;
+        return texture;
     }
 }

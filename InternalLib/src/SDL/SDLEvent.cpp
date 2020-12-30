@@ -6,27 +6,27 @@
 
 namespace creamyLib::impl
 {
-    bool WindowEvent::isQuit = false;
+    bool WindowEvent::isQuit_ = false;
 
-    void WindowEvent::Process()
+    void WindowEvent::process()
     {
-        SDL_Event l_Event;
+        SDL_Event sdlEvent;
 
-        while(SDL_PollEvent(&l_Event))
+        while(SDL_PollEvent(&sdlEvent))
         {
-            switch (l_Event.type)
+            switch (sdlEvent.type)
             {
             case SDL_QUIT:
-                isQuit = true;
+                isQuit_ = true;
                 break;
             default: ;
             }
         }
     }
 
-    bool WindowEvent::IsQuit()
+    bool WindowEvent::isQuit()
     {
-        return isQuit;
+        return isQuit_;
     }
 }
 

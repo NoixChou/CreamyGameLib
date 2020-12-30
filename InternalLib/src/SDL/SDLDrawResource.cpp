@@ -13,12 +13,12 @@ namespace creamyLib::impl
 {
     void DrawTexture2D(const LibHandlePointer& libHandle, const resource::TextureResource& texture, const math::Vector2& position, const math::Vector2& scale)
     {
-        const auto [x, y] = position.ToInteger();
+        const auto [x, y] = position.toInteger();
         const auto [scaleX, scaleY] = scale;
 
-        SDL_Rect l_Rect{ x, y, static_cast<int>(texture.width * scaleX), static_cast<int>(texture.height * scaleY) };
+        SDL_Rect rect{ x, y, static_cast<int>(texture.width * scaleX), static_cast<int>(texture.height * scaleY) };
 
-        SDL_RenderCopy(libHandle->sdlRenderer, texture.handle->texture, nullptr, &l_Rect);
+        SDL_RenderCopy(libHandle->sdlRenderer, texture.handle->texture, nullptr, &rect);
     }
 }
 

@@ -15,6 +15,6 @@ namespace creamyLib::engine
 
         TransformComponent(const math::Vector3& initPosition, const ComponentConfig& config);
 
-        void Update(float deltaTime) override;
+        void update(float deltaTime) override;
     };
 }

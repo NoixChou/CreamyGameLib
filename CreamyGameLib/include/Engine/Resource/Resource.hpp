@@ -7,14 +7,14 @@ namespace creamyLib::engine::resource
     class Resource
     {
     private:
-        std::any resource;
+        std::any resource_;
 
-        virtual void DisposeMemory() = 0;
+        virtual void disposeMemory() = 0;
 
         friend class ResourceManager;
 
     protected:
-        std::any& GetResource();
+        std::any& getResource();
 
     public:
         Resource(std::any resource);
@@ -24,6 +24,6 @@ namespace creamyLib::engine::resource
         Resource(Resource&&) = default;
         Resource& operator=(Resource&&) = default;
 
-        virtual void Destroy() = 0;
+        virtual void destroy() = 0;
     };
 }

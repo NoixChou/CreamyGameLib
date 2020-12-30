@@ -5,9 +5,9 @@
 
 namespace creamyLib::engine::resource
 {
-    void Texture::DisposeMemory()
+    void Texture::disposeMemory()
     {
-        GetResource().Destroy();
+        getResource().destroy();
     }
 
     Texture::Texture(const impl::resource::TextureResource& texture): Resource(std::make_any<impl::resource::TextureResource>(texture))
@@ -15,13 +15,13 @@ namespace creamyLib::engine::resource
         
     }
 
-    impl::resource::TextureResource Texture::GetResource()
+    impl::resource::TextureResource Texture::getResource()
     {
-        return std::any_cast<impl::resource::TextureResource>(Resource::GetResource());
+        return std::any_cast<impl::resource::TextureResource>(Resource::getResource());
     }
 
-    void Texture::Destroy()
+    void Texture::destroy()
     {
-        ResourceManager::GetInstance()->RemoveResource(this);
+        ResourceManager::getInstance()->removeResource(this);
     }
 }

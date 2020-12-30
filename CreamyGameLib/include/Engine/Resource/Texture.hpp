@@ -12,12 +12,12 @@ namespace creamyLib::engine::resource
     class Texture : public Resource
     {
     private:
-        void DisposeMemory() override;
+        void disposeMemory() override;
 
     public:
         Texture(const impl::resource::TextureResource& texture);
 
-        impl::resource::TextureResource GetResource();
-        void Destroy() override;
+        impl::resource::TextureResource getResource();
+        void destroy() override;
     };
 }

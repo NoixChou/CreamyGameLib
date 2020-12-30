@@ -20,8 +20,8 @@ namespace creamyLib::engine
     {
 
     protected:
-        TransformComponent transform;
-        std::vector<Component*> components;
+        TransformComponent transform_;
+        std::vector<Component*> components_;
 
     public:
         using ActorPointer = Actor*;
@@ -30,16 +30,16 @@ namespace creamyLib::engine
         Actor(const ActorConfig& config);
         virtual ~Actor();
 
-        void InternalUpdate(float deltaTime); // 最初に呼ばれる
-        void UpdateComponents(float deltaTime);
+        void internalUpdate(float deltaTime); // 最初に呼ばれる
+        void updateComponents(float deltaTime);
 
-        virtual void Update(float deltaTime) {}
+        virtual void update(float deltaTime) {}
 
-        void AddComponent(Component* component);
-        void RemoveComponent(Component* component);
+        void addComponent(Component* component);
+        void removeComponent(Component* component);
 
-        [[nodiscard]] TransformComponent& GetTransform();
-        [[nodiscard]] Scene* GetOwner() const;
-        [[nodiscard]] Application* GetApplication() const override;
+        [[nodiscard]] TransformComponent& getTransform();
+        [[nodiscard]] Scene* getOwner() const;
+        [[nodiscard]] Application* getApplication() const override;
     };
 }

@@ -5,49 +5,46 @@
 
 namespace creamyLib::engine
 {
-    World::World(Application* app, const WorldConfiguration& config) : EngineObject({ nullptr }), application(app), configuration(config)
-    {
-        
-    }
+    World::World(Application* app, const WorldConfiguration& config) : EngineObject({ nullptr }), application_(app), configuration_(config) {}
 
     World::~World()
     {
-        scenes.clear();
+        scenes_.clear();
     }
 
-    void World::Update(float deltaTime)
+    void World::update(float deltaTime)
     {
-        impl::RenderService::ClearBuffer(GetApplication()->GetLibHandle(), configuration.backgroundColor);
-        UpdateScenes(deltaTime);
+        impl::RenderService::clearBuffer(getApplication()->getLibHandle(), configuration_.backgroundColor);
+        updateScenes(deltaTime);
     }
 
-    void World::UpdateScenes(float deltaTime)
+    void World::updateScenes(float deltaTime)
     {
-        for (const auto& l_Scene : scenes)
+        for (const auto& scene : scenes_)
         {
-            l_Scene->Update(deltaTime);
+            scene->update(deltaTime);
         }
     }
 
-    void World::AddScene(Scene* scene)
+    void World::addScene(Scene* scene)
     {
         if (!scene) return;
-        scenes.emplace_back(scene);
+        scenes_.emplace_back(scene);
     }
 
-    void World::RemoveScene(Scene* scene)
+    void World::removeScene(Scene* scene)
     {
         if (!scene) return;
-        const auto l_SceneIterator = std::find(scenes.begin(), scenes.end(), scene);
+        const auto sceneIterator = std::find(scenes_.begin(), scenes_.end(), scene);
 
-        if (l_SceneIterator != scenes.end())
+        if (sceneIterator != scenes_.end())
         {
-            scenes.erase(l_SceneIterator);
+            scenes_.erase(sceneIterator);
         }
     }
 
-    Application* World::GetApplication() const
+    Application* World::getApplication() const
     {
-        return application;
+        return application_;
     }
 }

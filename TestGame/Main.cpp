@@ -15,57 +15,57 @@
 
 using namespace creamyLib;
 
-void MoveActor(engine::UserComponent* component, float deltaTime, float moveSpeed)
+void MoveActor(engine::UserComponent* component, const float deltaTime, const float moveSpeed)
 {
-    component->GetOwner()->GetTransform().position.x += moveSpeed * deltaTime;
+    component->getOwner()->getTransform().position.x += moveSpeed * deltaTime;
 }
 
 int main(int argc, char** argv)
 {
-    auto l_Game = Application::Create(ApplicationConfig{ "TestGame", 1024, 768 });
+    auto game = Application::create(ApplicationConfig{ "TestGame", 1024, 768 });
 
-    auto l_World = engine::World(&l_Game, engine::WorldConfiguration{ Color(255, 255, 255) });
-    auto l_Scene = engine::Scene({ &l_World });
-    auto l_RedBoxActor = engine::Actor({{ &l_Scene }});
-    auto l_BlueBoxActor = engine::Actor({{ &l_Scene}});
+    auto world = engine::World(&game, engine::WorldConfiguration{ Color(255, 255, 255) });
+    auto scene = engine::Scene({ &world });
+    auto redBoxActor = engine::Actor({{ &scene }});
+    auto blueBoxActor = engine::Actor({{ &scene}});
 
     // 図形レンダラーコンポーネント
-    auto l_RedBox = engine::PrimitiveRendererComponent(
+    auto redBox = engine::PrimitiveRendererComponent(
         engine::PrimitiveRendererComponent::PrimitiveType::rect,
         math::Vector2(100, 100),
         Color(255, 0, 0, 120),
-        { { &l_RedBoxActor } }
+        { { &redBoxActor } }
     );
-    auto l_BlueBox = engine::PrimitiveRendererComponent(
+    auto blueBox = engine::PrimitiveRendererComponent(
         engine::PrimitiveRendererComponent::PrimitiveType::rect,
         math::Vector2(100, 100),
         Color(0, 0, 255, 120),
-        { { &l_BlueBoxActor } }
+        { { &blueBoxActor } }
     );
 
     // 移動コンポーネント
-    auto l_RedBoxMove = engine::UserComponent([](engine::UserComponent* component, float deltaTime) { MoveActor(component, deltaTime, 40.f); }, {{ &l_RedBoxActor }});
-    auto l_BlueBoxMove = engine::UserComponent([](engine::UserComponent* component, float deltaTime) { MoveActor(component, deltaTime, 45.f); }, {{ &l_BlueBoxActor }});
+    auto redBoxMove = engine::UserComponent([](engine::UserComponent* component, const float deltaTime) { MoveActor(component, deltaTime, 40.f); }, {{ &redBoxActor }});
+    auto blueBoxMove = engine::UserComponent([](engine::UserComponent* component, const float deltaTime) { MoveActor(component, deltaTime, 45.f); }, {{ &blueBoxActor }});
 
     // テクスチャレンダラーコンポーネント
-    engine::resource::Texture* l_Texture;
+    engine::resource::Texture* texture;
     try {
-        l_Texture = engine::resource::ResourceManager::GetInstance()->GetResourceTextureFromFile("test.png");
-    }catch(exception::ResourceLoadFailedException& e)
+        texture = engine::resource::ResourceManager::getInstance()->getResourceTextureFromFile("test.png");
+    }catch(exception::ResourceLoadFailedException& exception)
     {
-        std::cout << "read error: texture \"" << e.GetFileName() << "\"" << std::endl;
-        std::cout << e.what() << std::endl;
+        std::cout << "read error: texture \"" << exception.getFileName() << "\"" << std::endl;
+        std::cout << exception.what() << std::endl;
 
         return 0;
     }
-    auto l_RedBoxTexture = engine::TextureRendererComponent(
-        l_Texture,
+    auto redBoxTexture = engine::TextureRendererComponent(
+        texture,
         math::Vector2(100, 100),
-        { {&l_RedBoxActor } }
+        { {&redBoxActor } }
     );
 
-    l_Game.Start(&l_World);
-    l_Game.Quit();
+    game.start(&world);
+    game.quit();
 
     return 0;
 }

@@ -15,7 +15,7 @@ namespace creamyLib::engine
     class TextureRendererComponent : public Component
     {
     private:
-        impl::LibHandlePointer implLibHandle = nullptr;
+        impl::LibHandlePointer implLibHandle_ = nullptr;
 
     public:
         resource::Texture* texture;
@@ -23,6 +23,6 @@ namespace creamyLib::engine
 
         TextureRendererComponent(resource::Texture* texture, const math::Vector2& size, const ComponentConfig& config);
 
-        void Update(float deltaTime) override;
+        void update(float deltaTime) override;
     };
 }

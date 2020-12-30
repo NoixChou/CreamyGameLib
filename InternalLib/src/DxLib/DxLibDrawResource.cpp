@@ -13,7 +13,7 @@ namespace creamyLib::impl
 {
     void DrawTexture2D(const LibHandlePointer& libHandle, const resource::TextureResource& texture, const math::Vector2& position, const math::Vector2& scale)
     {
-        const auto [x, y] = position.ToInteger();
+        const auto [x, y] = position.toInteger();
         const auto [scaleX, scaleY] = scale;
 
         DxLib::SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);

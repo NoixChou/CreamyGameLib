@@ -4,22 +4,22 @@
 
 namespace creamyLib::engine
 {
-    std::chrono::high_resolution_clock::time_point DeltaTime::clockCount;
-    float DeltaTime::deltaTime = 0.f;
+    std::chrono::high_resolution_clock::time_point DeltaTime::clockCount_;
+    float DeltaTime::deltaTime_ = 0.f;
 
-    void DeltaTime::Init()
+    void DeltaTime::init()
     {
-        clockCount = std::chrono::high_resolution_clock::now();
+        clockCount_ = std::chrono::high_resolution_clock::now();
     }
 
-    void DeltaTime::Update()
+    void DeltaTime::update()
     {
-        deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - clockCount).count() / 1000000.0f;
-        clockCount = std::chrono::high_resolution_clock::now();
+        deltaTime_ = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - clockCount_).count() / 1000000.0f;
+        clockCount_ = std::chrono::high_resolution_clock::now();
     }
 
-    float DeltaTime::Get()
+    float DeltaTime::get()
     {
-        return deltaTime;
+        return deltaTime_;
     }
 }

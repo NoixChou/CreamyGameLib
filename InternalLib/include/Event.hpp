@@ -5,10 +5,10 @@ namespace creamyLib::impl
     class WindowEvent
     {
     private:
-        static bool isQuit;
+        static bool isQuit_;
 
     public:
-        static void Process();
-        static bool IsQuit();
+        static void process();
+        static bool isQuit();
     };
 }

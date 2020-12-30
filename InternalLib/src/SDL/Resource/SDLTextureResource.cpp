@@ -8,7 +8,7 @@ namespace creamyLib::impl::resource
 {
     TextureResource::~TextureResource() = default;
 
-    void TextureResource::Destroy()
+    void TextureResource::destroy()
     {
         if (!handle->texture) return;
         SDL_DestroyTexture(handle->texture);
