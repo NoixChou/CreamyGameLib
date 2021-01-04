@@ -1,14 +1,17 @@
 #pragma once
 
+#include <memory>
+
 #include "Engine/Actor/Component/Component.hpp"
+#include "Engine/Resource/ResourcePrefab.hpp"
 
 #include "Math/Vector2.hpp"
-#include "Util/Color.hpp"
 
 namespace creamyLib::engine
 {
     namespace resource
     {
+        class AssetTexture;
         class Texture;
     }
 
@@ -18,10 +21,10 @@ namespace creamyLib::engine
         impl::LibHandlePointer implLibHandle_ = nullptr;
 
     public:
-        resource::Texture* texture;
+        resource::ResourcePrefab<resource::Texture> texture;
         math::Vector2 size;
 
-        TextureRendererComponent(resource::Texture* texture, const math::Vector2& size, const ComponentConfig& config);
+        TextureRendererComponent(resource::ResourcePrefab<resource::Texture> texture, const math::Vector2& size, const ComponentConfig& config);
 
         void update(float deltaTime) override;
     };

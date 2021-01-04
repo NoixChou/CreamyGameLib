@@ -6,7 +6,9 @@
 
 namespace creamyLib::impl::resource
 {
-    std::optional<TextureResource> LoadTextureFromFile(const LibHandlePointer& libHandle, const std::string& fileName)
+    ResourceLoader::ResourceLoader(const LibHandlePointer& libHandle) : libHandle_(libHandle) {}
+
+    std::optional<TextureResource> ResourceLoader::loadTextureFromFile(const std::string& fileName) const
     {
         int texture = DxLib::LoadGraph(fileName.c_str());
         if(texture < 0)

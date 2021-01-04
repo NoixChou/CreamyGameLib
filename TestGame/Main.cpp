@@ -7,6 +7,8 @@
 #include "Engine/Actor/Component/UserComponent.hpp"
 #include "Engine/Actor/Actor.hpp"
 #include "Engine/Resource/ResourceManager.hpp"
+#include "Engine/Resource/Asset.hpp"
+#include "Engine/Resource/Texture.hpp"
 #include "Engine/Scene/Scene.hpp"
 #include "Engine/World/World.hpp"
 #include "Engine/World/WorldConfiguration.hpp"
@@ -17,7 +19,7 @@ using namespace creamyLib;
 
 void MoveActor(engine::UserComponent* component, const float deltaTime, const float moveSpeed)
 {
-    component->getOwner()->getTransform().position.x += moveSpeed * deltaTime;
+    component->getOwner()->getTransform().localPosition.x += moveSpeed * deltaTime;
 }
 
 int main(int argc, char** argv)
@@ -25,9 +27,9 @@ int main(int argc, char** argv)
     auto game = Application::create(ApplicationConfig{ "TestGame", 1024, 768 });
 
     auto world = engine::World(&game, engine::WorldConfiguration{ Color(255, 255, 255) });
-    auto scene = engine::Scene({ &world });
+    auto scene = engine::Scene({ .owner = &world });
     auto redBoxActor = engine::Actor({{ &scene }});
-    auto blueBoxActor = engine::Actor({{ &scene}});
+    auto blueBoxActor = engine::Actor({{ &scene }});
 
     // 図形レンダラーコンポーネント
     auto redBox = engine::PrimitiveRendererComponent(
@@ -48,9 +50,11 @@ int main(int argc, char** argv)
     auto blueBoxMove = engine::UserComponent([](engine::UserComponent* component, const float deltaTime) { MoveActor(component, deltaTime, 45.f); }, {{ &blueBoxActor }});
 
     // テクスチャレンダラーコンポーネント
-    engine::resource::Texture* texture;
+    engine::resource::AssetTexture textureAsset({ { "img_test", "test.png" } });
+    auto texture = engine::resource::ResourcePrefab<engine::resource::Texture>(textureAsset);
+
     try {
-        texture = engine::resource::ResourceManager::getInstance()->getResourceTextureFromFile("test.png");
+        texture = engine::resource::ResourceManager::getInstance()->getAssetResource(textureAsset);
     }catch(exception::ResourceLoadFailedException& exception)
     {
         std::cout << "read error: texture \"" << exception.getFileName() << "\"" << std::endl;

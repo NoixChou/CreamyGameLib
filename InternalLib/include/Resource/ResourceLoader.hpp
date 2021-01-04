@@ -1,12 +1,22 @@
 #pragma once
 
-#include <optional>
 #include <string>
+#include <optional>
 
-#include "Handle.hpp"
+#include "../../InternalLib/include/Handle.hpp"
+
 #include "TextureResource.hpp"
 
 namespace creamyLib::impl::resource
 {
-    std::optional<TextureResource> LoadTextureFromFile(const LibHandlePointer& libHandle, const std::string& fileName);
+    class ResourceLoader
+    {
+    private:
+        LibHandlePointer libHandle_ = nullptr;
+
+    public:
+        ResourceLoader(const LibHandlePointer& libHandle);
+
+        [[nodiscard]] std::optional<TextureResource> loadTextureFromFile(const std::string& fileName) const;
+    };
 }

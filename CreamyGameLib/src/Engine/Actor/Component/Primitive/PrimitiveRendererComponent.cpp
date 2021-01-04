@@ -1,10 +1,10 @@
 #include "Engine/Actor/Component/Primitive/2D/PrimitiveRendererComponent.hpp"
 
+#include "../../InternalLib/include/DrawPrimitive.hpp"
+
 #include "Application/Application.hpp"
 
 #include "Engine/Actor/Actor.hpp"
-
-#include "DrawPrimitive.hpp"
 
 namespace creamyLib::engine
 {
@@ -18,7 +18,7 @@ namespace creamyLib::engine
     {
         if(primitive == PrimitiveType::rect)
         {
-            impl::DrawRect(implLibHandle_, getOwner()->getTransform().position.toVector2(), size, color, isFill);
+            impl::DrawRect(implLibHandle_, getOwner()->getTransform().localPosition.toVector2(), size, color, isFill);
         }
     }
 }

@@ -3,7 +3,7 @@
 
 namespace creamyLib::engine
 {
-    struct ActorConfig : object::EngineObjectConfig
+    struct ActorConfiguration : object::EngineObjectConfig
     {
     };
 }

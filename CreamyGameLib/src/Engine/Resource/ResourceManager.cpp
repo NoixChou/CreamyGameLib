@@ -2,8 +2,9 @@
 
 #include <iostream>
 
+#include "../../InternalLib/include/Resource/ResourceLoader.hpp"
+
 #include "Exception/Resource/ResourceLoadFailedException.hpp"
-#include "Resource/ResourceLoader.hpp"
 
 namespace creamyLib::engine::resource
 {
@@ -13,16 +14,12 @@ namespace creamyLib::engine::resource
     ResourceManager::ResourceManager(impl::LibHandlePointer libHandle)
     {
         ResourceManager::libHandle_ = libHandle;
+
+        loader_ = std::make_unique<impl::resource::ResourceLoader>(ResourceManager::libHandle_);
     }
 
     ResourceManager::~ResourceManager()
     {
-        for(auto* resource : resources_)
-        {
-            resource->destroy();
-            delete resource;
-        }
-
         resources_.clear();
     }
 
@@ -46,31 +43,31 @@ namespace creamyLib::engine::resource
         return instance_;
     }
 
-    void ResourceManager::removeResource(Resource* resource)
+    std::shared_ptr<Resource> ResourceManager::getAssetResource(const Asset& asset)
     {
-        if (!resource) return;
-
-        const auto iterator = std::find(resources_.begin(), resources_.end(), resource);
-
-        if (iterator != resources_.end())
+        if(const auto iterator = resources_.find(asset.config_); iterator != resources_.end())
         {
-            resource->disposeMemory();
+            auto resource = iterator->second.lock();
+            if (resource)
+            {
+                return resource;
+            }
+
             resources_.erase(iterator);
         }
-    }
 
-    Texture* ResourceManager::getResourceTextureFromFile(const std::string& fileName)
-    {
-        auto result = impl::resource::LoadTextureFromFile(ResourceManager::libHandle_, fileName);
-        if(!result)
+        std::shared_ptr<Resource> resource;
+
+        try
         {
-            throw exception::ResourceLoadFailedException(fileName, "");
+            resource.reset(asset.loadResource(loader_.get()));
+        }catch ([[maybe_unused]] exception::ResourceLoadFailedException& e)
+        {
+            throw;
         }
 
-        auto* texture = new Texture(result.value());
+        resources_[asset.config_] = resource;
 
-        resources_.emplace_back(texture);
-
-        return texture;
+        return resource;
     }
 }

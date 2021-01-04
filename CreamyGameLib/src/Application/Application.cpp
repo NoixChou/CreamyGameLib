@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-#include "DrawResource.hpp"
+#include "../../InternalLib/include/ExternalLibrary.hpp"
+#include "../../InternalLib/include/DrawResource.hpp"
+
 #include "Application/ApplicationConfig.hpp"
 #include "Engine/World/World.hpp"
-
-#include "../../InternalLib/include/ExternalLibrary.hpp"
 
 #include "Exception/Application/InitializationFailedException.hpp"
 
@@ -30,6 +30,7 @@ namespace creamyLib
         }
 
         engine::resource::ResourceManager::initialize(libHandle);
+        //engine::resource::AssetManager::initialize(libHandle);
 
         return Application(libHandle);
     }

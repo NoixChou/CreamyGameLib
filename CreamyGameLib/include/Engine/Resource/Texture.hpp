@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Asset.hpp"
 #include "Resource.hpp"
 
 namespace creamyLib::impl::resource
@@ -9,15 +10,25 @@ namespace creamyLib::impl::resource
 
 namespace creamyLib::engine::resource
 {
+    struct AssetTextureConfiguration;
+
     class Texture : public Resource
     {
-    private:
-        void disposeMemory() override;
-
     public:
         Texture(const impl::resource::TextureResource& texture);
+        ~Texture() override;
 
-        impl::resource::TextureResource getResource();
+        [[nodiscard]] impl::resource::TextureResource getResource();
         void destroy() override;
     };
+
+    class AssetTexture : public Asset
+    {
+    public:
+        AssetTexture(const AssetTextureConfiguration& config);
+        [[nodiscard]] Texture* loadResource(const impl::resource::ResourceLoader* loader) const override;
+    };
+
+    struct AssetTextureConfiguration : public AssetConfiguration
+    {};
 }

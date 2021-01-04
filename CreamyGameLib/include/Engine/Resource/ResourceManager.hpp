@@ -1,9 +1,14 @@
 #pragma once
 
-#include <vector>
+#include <concepts>
+#include <memory>
+#include <unordered_map>
 
-#include "Texture.hpp"
 #include "../../InternalLib/include/ExternalLibrary.hpp"
+#include "../../InternalLib/include/Resource/ResourceLoader.hpp"
+
+#include "Resource.hpp"
+#include "Asset.hpp"
 
 namespace creamyLib::engine::resource
 {
@@ -19,13 +24,15 @@ namespace creamyLib::engine::resource
         static void initialize(impl::LibHandlePointer libHandle);
         static void finalize();
 
-        std::vector<Resource*> resources_;
+        std::unique_ptr<impl::resource::ResourceLoader> loader_;
+
+        std::unordered_map<AssetConfiguration, std::weak_ptr<Resource>> resources_;
 
         friend class Application;
 
     public:
-        static ResourceManager* getInstance();
-        void removeResource(Resource* resource);
-        Texture* getResourceTextureFromFile(const std::string& fileName);
+        [[nodiscard]] static ResourceManager* getInstance();
+
+        [[nodiscard]] std::shared_ptr<Resource> getAssetResource(const Asset& asset);
     };
 }

@@ -1,18 +1,15 @@
 #include "Engine/Resource/Resource.hpp"
 
-#include "Resource/ResourceInterface.hpp"
-
 #include <utility>
 
 namespace creamyLib::engine::resource
 {
-    Resource::Resource(std::any resource): resource_(std::move(resource)) {}
-
-    Resource::~Resource()
+    Resource::Resource(std::any resource): resource_(std::move(resource))
     {
+
     }
 
-    std::any& Resource::getResource()
+    std::any& Resource::getRawResource()
     {
         return resource_;
     }

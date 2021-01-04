@@ -7,7 +7,9 @@
 
 namespace creamyLib::impl::resource
 {
-    std::optional<TextureResource> LoadTextureFromFile(const LibHandlePointer& libHandle, const std::string& fileName)
+    ResourceLoader::ResourceLoader(const LibHandlePointer& libHandle): libHandle_(libHandle) {}
+
+    std::optional<TextureResource> ResourceLoader::loadTextureFromFile(const std::string& fileName) const
     {
         SDL_Surface* surface = IMG_Load(fileName.c_str());
         if(!surface)
@@ -16,7 +18,7 @@ namespace creamyLib::impl::resource
             return std::nullopt;
         }
 
-        SDL_Texture* texture = SDL_CreateTextureFromSurface(libHandle->sdlRenderer, surface);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(libHandle_->sdlRenderer, surface);
         SDL_FreeSurface(surface);
         if(!texture)
         {

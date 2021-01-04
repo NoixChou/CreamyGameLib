@@ -9,16 +9,12 @@ namespace creamyLib::engine::resource
     private:
         std::any resource_;
 
-        virtual void disposeMemory() = 0;
-
-        friend class ResourceManager;
-
     protected:
-        std::any& getResource();
+        [[nodiscard]] std::any& getRawResource();
 
     public:
         Resource(std::any resource);
-        virtual ~Resource();
+        virtual ~Resource() = default;
         Resource(const Resource&) = default;
         Resource& operator=(const Resource&) = default;
         Resource(Resource&&) = default;
