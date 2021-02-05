@@ -1,4 +1,9 @@
 #pragma once
+
+#include <algorithm>
+#include <execution>
+#include <thread>
+
 #include "World.hpp"
 
 namespace creamyLib::engine::ecs
@@ -33,9 +38,27 @@ namespace creamyLib::engine::ecs
         World* world_;
 
         template<typename FuncType, typename ...Types>
+        static void foreachParallelImpl(typeInfo::DataTypePool* pool, FuncType&& function, typeInfo::DataTypeChunk<Types> ...args)
+        {
+            using TupleType = std::tuple<Types&...>;
+            std::vector<TupleType> componentSets;
+
+            for(std::size_t i = 0; i < pool->getSize(); i++)
+            {
+                componentSets.emplace_back(std::tie<Types&...>(args[i]...));
+            }
+
+            std::for_each(std::execution::par, componentSets.begin(), componentSets.end(), [&function](TupleType& arg)
+                {
+                    std::apply(function, arg);
+                }
+            );
+        }
+
+        template<typename FuncType, typename ...Types>
         static void foreachImpl(typeInfo::DataTypePool* pool, FuncType&& function, typeInfo::DataTypeChunk<Types> ...args)
         {
-            for(std::size_t i = 0; i < pool->getSize(); i++)
+            for (std::size_t i = 0; i < pool->getSize(); i++)
             {
                 function(args[i]...);
             }
@@ -59,6 +82,18 @@ namespace creamyLib::engine::ecs
             for (typeInfo::DataTypePool* pool : pools)
             {
                 std::apply(foreachImpl<FuncType, Types...>, std::tuple_cat(std::make_tuple(pool, function), getDataTypeChunks<Types...>(pool)));
+            }
+        }
+
+        template<typename ...Types, typename FuncType>
+        constexpr void foreachParallel(FuncType&& function)
+        {
+            typeInfo::DataTypeSet types = typeInfo::DataTypeSet::make<Types...>();
+            std::vector<typeInfo::DataTypePool*> pools = world_->getComponentPools(types);
+
+            for (typeInfo::DataTypePool* pool : pools)
+            {
+                std::apply(foreachParallelImpl<FuncType, Types...>, std::tuple_cat(std::make_tuple(pool, function), getDataTypeChunks<Types...>(pool)));
             }
         }
 

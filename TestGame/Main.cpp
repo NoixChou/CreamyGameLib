@@ -53,7 +53,7 @@ public:
 
     void update() override
     {
-        foreach<Transform, TestComponent>([](Transform& transform, TestComponent& test)
+        foreachParallel<Transform, TestComponent>([](Transform& transform, TestComponent& test)
             {
                 transform.position.x += test.speed * engine::DeltaTime::get();
             }
@@ -102,11 +102,11 @@ int main(int argc, char** argv)
 
     world.makeEntity(Scene{ .backgroundColor = Color(0, 0, 0) });
 
-    const int entityNum = 1000000;
+    const auto entityNum = 100000;
 
     world.setComponentPoolCapacity<Transform, TestComponent, Rect>(entityNum);
 
-    for (int i = 0; i < entityNum; i++)
+    for (auto i = 0; i < entityNum; i++)
     {
         std::random_device randDevice;
         std::mt19937 mt(randDevice());

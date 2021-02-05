@@ -4,9 +4,13 @@
 
 namespace creamyLib::engine::ecs
 {
+    class EntityPool;
+
     class Entity
     {
     private:
+        friend EntityPool;
+
         std::size_t id_;
         std::size_t worldId_;
         std::size_t poolId_;
