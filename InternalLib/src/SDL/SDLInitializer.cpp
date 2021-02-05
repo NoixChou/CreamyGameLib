@@ -16,7 +16,7 @@ namespace creamyLib::impl
         {
             return nullptr;
         }
-
+        
         SDL_Window* window = SDL_CreateWindow(libConfig.windowTitle.c_str(), libConfig.windowPosX, libConfig.windowPosY, libConfig.windowWidth, libConfig.windowHeight, libConfig.windowFlags);
 
         if(!window)

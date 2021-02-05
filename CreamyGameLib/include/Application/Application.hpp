@@ -7,7 +7,9 @@
 namespace creamyLib
 {
     namespace engine {
-        class World;
+        namespace ecs {
+            class World;
+        }
     }
 
     class Application
@@ -22,7 +24,8 @@ namespace creamyLib
     public:
         static Application create(const ApplicationConfig& applicationConfig);
 
-        void start(engine::World* startWorld);
+        //void start(engine::World* startWorld);
+        void start(engine::ecs::World* startWorld);
         void quit() const;
 
         [[nodiscard]] impl::LibHandlePointer getLibHandle() const;

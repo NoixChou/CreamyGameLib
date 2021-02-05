@@ -1,74 +1,130 @@
 #include <iostream>
+#include <random>
 
+#include "../InternalLib/include/DrawPrimitive.hpp"
 #include "Application/Application.hpp"
 
-#include "Engine/Actor/Component/Primitive/2D/PrimitiveRendererComponent.hpp"
-#include "Engine/Actor/Component/Render/TextureRendererComponent.hpp"
-#include "Engine/Actor/Component/UserComponent.hpp"
-#include "Engine/Actor/Actor.hpp"
+//#include "Engine/Actor/Component/Primitive/2D/PrimitiveRendererComponent.hpp"
+//#include "Engine/Actor/Component/Render/TextureRendererComponent.hpp"
+//#include "Engine/Actor/Component/UserComponent.hpp"
+//#include "Engine/Actor/Actor.hpp"
+#include "Engine/Entity/ComponentSystem.hpp"
 #include "Engine/Resource/ResourceManager.hpp"
 #include "Engine/Resource/Asset.hpp"
 #include "Engine/Resource/Texture.hpp"
-#include "Engine/Scene/Scene.hpp"
-#include "Engine/World/World.hpp"
-#include "Engine/World/WorldConfiguration.hpp"
+//#include "Engine/Scene/Scene.hpp"
+#include "Engine/Time/DeltaTime.hpp"
+//#include "Engine/World/World.hpp"
+//#include "Engine/World/WorldConfiguration.hpp"
 
 #include "Exception/Resource/ResourceLoadFailedException.hpp"
+#include "Math/Vector3.hpp"
+#include "Util/Color.hpp"
 
 using namespace creamyLib;
 
-void MoveActor(engine::UserComponent* component, const float deltaTime, const float moveSpeed)
+struct Transform
 {
-    component->getOwner()->getTransform().localPosition.x += moveSpeed * deltaTime;
-}
+    math::Vector3 position;
+    math::Vector3 rotation;
+    math::Vector3 scale;
+};
+
+struct TestComponent
+{
+    int speed;
+};
+
+struct Rect
+{
+    math::Vector2 size;
+    Color color;
+};
+
+struct Scene
+{
+    Color backgroundColor;
+};
+
+class TestSystem : public engine::ecs::ComponentSystem
+{
+public:
+    using ComponentSystem::ComponentSystem;
+
+    void update() override
+    {
+        foreach<Transform, TestComponent>([](Transform& transform, TestComponent& test)
+            {
+                transform.position.x += test.speed * engine::DeltaTime::get();
+            }
+        );
+    }
+};
+
+class DrawSceneSystem : public engine::ecs::ComponentSystem
+{
+    using ComponentSystem::ComponentSystem;
+
+    void update() override
+    {
+        foreach<Scene>([this](Scene& scene)
+            {
+                impl::RenderService::clearBuffer(getApplication()->getLibHandle(), scene.backgroundColor);
+            }
+        );
+    }
+};
+
+class DrawRectSystem : public engine::ecs::ComponentSystem
+{
+public:
+    using ComponentSystem::ComponentSystem;
+
+    void update() override
+    {
+        foreach<Transform, Rect>([this](Transform& transform, Rect& rect)
+            {
+                impl::DrawRect(this->getApplication()->getLibHandle(), transform.position.toVector2(), rect.size, rect.color, false);
+            }
+        );
+    }
+};
 
 int main(int argc, char** argv)
 {
-    auto game = Application::create(ApplicationConfig{ "TestGame", 1024, 768 });
+    auto game = Application::create(ApplicationConfig{ "TestGame", 1920, 1080, true });
 
-    auto world = engine::World(&game, engine::WorldConfiguration{ Color(255, 255, 255) });
-    auto scene = engine::Scene({ .owner = &world });
-    auto redBoxActor = engine::Actor({{ &scene }});
-    auto blueBoxActor = engine::Actor({{ &scene }});
+    engine::ecs::World world(&game);
 
-    // 図形レンダラーコンポーネント
-    auto redBox = engine::PrimitiveRendererComponent(
-        engine::PrimitiveRendererComponent::PrimitiveType::rect,
-        math::Vector2(100, 100),
-        Color(255, 0, 0, 120),
-        { { &redBoxActor } }
-    );
-    auto blueBox = engine::PrimitiveRendererComponent(
-        engine::PrimitiveRendererComponent::PrimitiveType::rect,
-        math::Vector2(100, 100),
-        Color(0, 0, 255, 120),
-        { { &blueBoxActor } }
-    );
+    world.addSystem<DrawSceneSystem>();
+    world.addSystem<TestSystem>();
+    world.addSystem<DrawRectSystem>();
 
-    // 移動コンポーネント
-    auto redBoxMove = engine::UserComponent([](engine::UserComponent* component, const float deltaTime) { MoveActor(component, deltaTime, 40.f); }, {{ &redBoxActor }});
-    auto blueBoxMove = engine::UserComponent([](engine::UserComponent* component, const float deltaTime) { MoveActor(component, deltaTime, 45.f); }, {{ &blueBoxActor }});
+    world.makeEntity(Scene{ .backgroundColor = Color(0, 0, 0) });
 
-    // テクスチャレンダラーコンポーネント
-    engine::resource::AssetTexture textureAsset({ { "img_test", "test.png" } });
-    auto texture = engine::resource::ResourcePrefab<engine::resource::Texture>(textureAsset);
+    const int entityNum = 1000000;
 
-    try {
-        texture = engine::resource::ResourceManager::getInstance()->getAssetResource(textureAsset);
-    }catch(exception::ResourceLoadFailedException& exception)
+    world.setComponentPoolCapacity<Transform, TestComponent, Rect>(entityNum);
+
+    for (int i = 0; i < entityNum; i++)
     {
-        std::cout << "read error: texture \"" << exception.getFileName() << "\"" << std::endl;
-        std::cout << exception.what() << std::endl;
+        std::random_device randDevice;
+        std::mt19937 mt(randDevice());
+        std::uniform_int_distribution<> rand(10, 500);
 
-        return 0;
+        auto transform = Transform{
+            .position = math::Vector3(rand(mt), rand(mt), rand(mt)),
+            .rotation = math::Vector3(rand(mt), rand(mt), rand(mt)),
+            .scale = math::Vector3(rand(mt),rand(mt),rand(mt))
+        };
+        auto test = TestComponent{ .speed = rand(mt) / 2 };
+        auto rect = Rect{ .size = math::Vector2(rand(mt), rand(mt)), .color = Color(rand(mt), rand(mt), rand(mt)) };
+
+        world.makeEntity(transform, test, rect);
     }
-    auto redBoxTexture = engine::TextureRendererComponent(
-        texture,
-        math::Vector2(100, 100),
-        { {&redBoxActor } }
-    );
 
     game.start(&world);
+
     game.quit();
 
     return 0;

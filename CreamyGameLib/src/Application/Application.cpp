@@ -2,11 +2,14 @@
 
 #include <iostream>
 
+#include "../../../External/SDL/include/SDL_video.h"
+
 #include "../../InternalLib/include/ExternalLibrary.hpp"
 #include "../../InternalLib/include/DrawResource.hpp"
 
 #include "Application/ApplicationConfig.hpp"
 #include "Engine/World/World.hpp"
+#include "Engine/Entity/World.hpp"
 
 #include "Exception/Application/InitializationFailedException.hpp"
 
@@ -22,7 +25,14 @@ namespace creamyLib
 
     Application Application::create(const ApplicationConfig& applicationConfig)
     {
-        auto* libHandle = impl::Initialize(impl::LibConfig{ applicationConfig.applicationTitle, 100, 100, applicationConfig.windowWidth, applicationConfig.windowHeight, 0 });
+        std::uint32_t windowFlags = 0;
+
+        if(applicationConfig.isFullscreen)
+        {
+            windowFlags |= SDL_WINDOW_FULLSCREEN;
+        }
+
+        auto* libHandle = impl::Initialize(impl::LibConfig{ applicationConfig.applicationTitle, 100, 100, applicationConfig.windowWidth, applicationConfig.windowHeight, windowFlags});
 
         if(!libHandle)
         {
@@ -35,6 +45,7 @@ namespace creamyLib
         return Application(libHandle);
     }
 
+    /*
     void Application::start(engine::World* startWorld)
     {
         engine::DeltaTime::init();
@@ -48,6 +59,26 @@ namespace creamyLib
             engine::DeltaTime::update();
             const float deltaTime = engine::DeltaTime::get();
             startWorld->update(deltaTime);
+
+            impl::RenderService::presentBuffer(libHandle_);
+
+            isRunning_ = !impl::WindowEvent::isQuit();
+        }
+    }
+    */
+
+    void Application::start(engine::ecs::World* startWorld)
+    {
+        engine::DeltaTime::init();
+
+        std::cout << "Application (ECS) started" << std::endl;
+
+        while (isRunning_)
+        {
+            impl::WindowEvent::process();
+
+            engine::DeltaTime::update();
+            startWorld->update();
 
             impl::RenderService::presentBuffer(libHandle_);
 

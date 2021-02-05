@@ -9,5 +9,6 @@ namespace creamyLib
         std::string applicationTitle;
         int windowWidth;
         int windowHeight;
+        bool isFullscreen;
     };
 }
