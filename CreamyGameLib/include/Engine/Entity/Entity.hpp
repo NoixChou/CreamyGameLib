@@ -17,6 +17,7 @@ namespace creamyLib::engine::ecs
         std::size_t index_;
 
         static std::size_t getHash(std::size_t seed, std::size_t value);
+        void updateHash();
 
     public:
         explicit Entity(std::size_t worldId, std::size_t poolId, std::size_t index);

@@ -32,7 +32,8 @@ struct Transform
 
 struct TestComponent
 {
-    int speed;
+    float speed;
+    float lifeTime;
 };
 
 struct Rect
@@ -46,6 +47,23 @@ struct Scene
     Color backgroundColor;
 };
 
+void makeEntity(engine::ecs::World* world)
+{
+    std::random_device randDevice;
+    std::mt19937 mt(randDevice());
+    std::uniform_int_distribution<> rand(10, 200);
+
+    auto transform = Transform{
+        .position = math::Vector3(rand(mt) * 2, rand(mt), rand(mt) * 3),
+        .rotation = math::Vector3(rand(mt), rand(mt), rand(mt)),
+        .scale = math::Vector3(rand(mt),rand(mt),rand(mt))
+    };
+    auto test = TestComponent{ .speed = rand(mt) / 2.f, .lifeTime = 10.f };
+    auto rect = Rect{ .size = math::Vector2(rand(mt), rand(mt)), .color = Color(rand(mt), rand(mt), rand(mt)) };
+
+    world->queueMakeEntity(transform, test, rect);
+}
+
 class TestSystem : public engine::ecs::ComponentSystem
 {
 public:
@@ -53,8 +71,15 @@ public:
 
     void update() override
     {
-        foreachParallel<Transform, TestComponent>([](Transform& transform, TestComponent& test)
+        foreachWithEntity<Transform, TestComponent>(
+            [this](engine::ecs::Entity& entity, Transform& transform, TestComponent& test)
             {
+                test.lifeTime -= engine::DeltaTime::get();
+                if (transform.position.x > 1000.f)
+                {
+                    getWorld()->destroyEntity(entity);
+                    makeEntity(getWorld());
+                }
                 transform.position.x += test.speed * engine::DeltaTime::get();
             }
         );
@@ -84,7 +109,7 @@ public:
     {
         foreach<Transform, Rect>([this](Transform& transform, Rect& rect)
             {
-                impl::DrawRect(this->getApplication()->getLibHandle(), transform.position.toVector2(), rect.size, rect.color, false);
+                impl::DrawRect(this->getApplication()->getLibHandle(), transform.position.toVector2(), rect.size, rect.color, true);
             }
         );
     }
@@ -92,7 +117,7 @@ public:
 
 int main(int argc, char** argv)
 {
-    auto game = Application::create(ApplicationConfig{ "TestGame", 1920, 1080, true });
+    auto game = Application::create(ApplicationConfig{ "TestGame", 1200, 900, false });
 
     engine::ecs::World world(&game);
 
@@ -100,27 +125,15 @@ int main(int argc, char** argv)
     world.addSystem<TestSystem>();
     world.addSystem<DrawRectSystem>();
 
-    world.makeEntity(Scene{ .backgroundColor = Color(0, 0, 0) });
+    world.queueMakeEntity(Scene{ .backgroundColor = Color(0, 0, 0) });
 
-    const auto entityNum = 100000;
+    const auto entityNum = 2000;
 
     world.setComponentPoolCapacity<Transform, TestComponent, Rect>(entityNum);
 
     for (auto i = 0; i < entityNum; i++)
     {
-        std::random_device randDevice;
-        std::mt19937 mt(randDevice());
-        std::uniform_int_distribution<> rand(10, 500);
-
-        auto transform = Transform{
-            .position = math::Vector3(rand(mt), rand(mt), rand(mt)),
-            .rotation = math::Vector3(rand(mt), rand(mt), rand(mt)),
-            .scale = math::Vector3(rand(mt),rand(mt),rand(mt))
-        };
-        auto test = TestComponent{ .speed = rand(mt) / 2 };
-        auto rect = Rect{ .size = math::Vector2(rand(mt), rand(mt)), .color = Color(rand(mt), rand(mt), rand(mt)) };
-
-        world.makeEntity(transform, test, rect);
+        makeEntity(&world);
     }
 
     game.start(&world);

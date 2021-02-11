@@ -1,9 +1,12 @@
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <vector>
 
+#include "ComponentPool.hpp"
 #include "EntityPool.hpp"
+
 #include "Util/DataType/DataTypePool.hpp"
 
 namespace creamyLib {
@@ -13,7 +16,7 @@ namespace creamyLib {
 namespace creamyLib::engine::ecs
 {
     class ComponentSystem;
-    class ComponentGroup;
+    class ComponentPool;
 
     class World
     {
@@ -24,10 +27,12 @@ namespace creamyLib::engine::ecs
         Application* application_;
 
         EntityPool entityPool_;
-        std::vector<typeInfo::DataTypePool> componentPools_;
+        std::vector<std::function<void()>> entityMakeQueues_;
+        std::vector<std::reference_wrapper<Entity>> entityDestroyQueues_;
+        std::vector<ComponentPool> componentPools_;
         std::vector<std::unique_ptr<ComponentSystem>> systems_;
 
-        std::tuple<typeInfo::DataTypePool&, std::size_t> getAndAddComponentPool(const typeInfo::DataTypeSet& types);
+        ComponentPool& getAndAddComponentPool(const typeInfo::DataTypeSet& types);
 
         template<typename HeadType, typename ...TailTypes>
         void addComponentsImpl(Entity& entity, HeadType& headComponent, TailTypes& ...tailComponents)
@@ -47,6 +52,7 @@ namespace creamyLib::engine::ecs
         void update();
 
         [[nodiscard]] Application* getApplication() const;
+        [[nodiscard]] std::size_t getId() const;
 
         template<typename ...Types>
         void setComponentPoolCapacity(std::size_t capacity)
@@ -62,16 +68,26 @@ namespace creamyLib::engine::ecs
             return this->makeEntity(typeInfo::DataTypeSet::make<Types...>());
         }
 
-        Entity& makeEntity(typeInfo::DataTypeSet&& types);
+        Entity& makeEntity(const typeInfo::DataTypeSet& types);
 
         template<typename ...Types>
-        Entity& makeEntity(Types&& ...components)
+        void queueMakeEntity(const Types& ...components)
         {
-            auto& entity = makeEntity<Types...>();
-            componentPools_[entity.getPoolId()].add(components...);
+            auto dataTypeSet = typeInfo::DataTypeSet::make<Types...>();
 
-            return entity;
+            entityMakeQueues_.emplace_back([this, dataTypeSet, components...]()
+            {
+                Entity& entity = this->makeEntity(dataTypeSet);
+                componentPools_[entity.getPoolId()].addComponents(components...);
+            });
         }
+
+        void makeQueuedEntities();
+
+        void destroyEntity(Entity& entity);
+        void destroyQueuedEntities();
+
+        Entity* getEntity(const Entity& entity);
 
         template<typename Type>
         void addComponent(Entity& entity, Type& component)
@@ -81,7 +97,7 @@ namespace creamyLib::engine::ecs
                 return;
             }
 
-            componentPools_[entity.getPoolId()].set(entity.getIndex(), component);
+            componentPools_[entity.getPoolId()].setComponent(entity.getIndex(), component);
         }
 
         template<typename Type>
@@ -91,12 +107,20 @@ namespace creamyLib::engine::ecs
         }
 
         template<typename ...Types>
-        std::vector<typeInfo::DataTypePool*> getComponentPools()
+        std::tuple<Types&...> getComponents(Entity& entity)
+        {
+            assert(this->contains(entity));
+
+            return std::tie(componentPools_[entity.getPoolId()].getComponentChunk<Types>()[entity.getIndex()]...);
+        }
+
+        template<typename ...Types>
+        std::vector<ComponentPool*> getComponentPools()
         {
             return this->getComponentPools(typeInfo::DataTypeSet::make<Types...>());
         }
 
-        std::vector<typeInfo::DataTypePool*> getComponentPools(const typeInfo::DataTypeSet& types);
+        std::vector<ComponentPool*> getComponentPools(const typeInfo::DataTypeSet& types);
 
         bool contains(Entity& entity) const;
     };

@@ -6,21 +6,21 @@ namespace creamyLib::engine::ecs
 {
     std::size_t World::worldCount_ = 0;
 
-    std::tuple<typeInfo::DataTypePool&, std::size_t> World::getAndAddComponentPool(const typeInfo::DataTypeSet& types)
+    ComponentPool& World::getAndAddComponentPool(const typeInfo::DataTypeSet& types)
     {
         for(std::size_t i = 0; auto&& pool : componentPools_)
         {
             if(pool.getPoolType() == types)
             {
-                return std::make_tuple(std::ref(pool), i);
+                return pool;
             }
 
             i++;
         }
 
-        componentPools_.emplace_back(typeInfo::DataTypePool(types));
+        componentPools_.emplace_back(ComponentPool(componentPools_.size(), types));
 
-        return std::make_tuple(std::ref(componentPools_[componentPools_.size() - 1]), componentPools_.size() - 1);
+        return componentPools_[componentPools_.size() - 1];
     }
 
     World::World(Application* application): id_(worldCount_++), application_(application)
@@ -31,10 +31,14 @@ namespace creamyLib::engine::ecs
 
     void World::update()
     {
+        makeQueuedEntities();
+
         for (auto&& system : systems_)
         {
             system->update();
         }
+
+        destroyQueuedEntities();
     }
 
     Application* World::getApplication() const
@@ -42,22 +46,63 @@ namespace creamyLib::engine::ecs
         return application_;
     }
 
+    std::size_t World::getId() const
+    {
+        return id_;
+    }
+
     void World::setComponentPoolCapacity(typeInfo::DataTypeSet&& types, std::size_t capacity)
     {
-        auto [pool, poolId] = getAndAddComponentPool(types);
+        auto& pool = getAndAddComponentPool(types);
         pool.resize(capacity);
     }
 
-    Entity& World::makeEntity(typeInfo::DataTypeSet&& types)
+    Entity& World::makeEntity(const typeInfo::DataTypeSet& types)
     {
-        auto [pool, poolId] = getAndAddComponentPool(types);
-        pool.resize(pool.getSize() + 1);
-        return entityPool_.addEntity(Entity(id_, poolId, pool.getSize()));
+        auto& pool = getAndAddComponentPool(types);
+        
+        return entityPool_.addEntity(Entity(id_, pool.getId(), pool.addReserve()));
     }
 
-    std::vector<typeInfo::DataTypePool*> World::getComponentPools(const typeInfo::DataTypeSet& types)
+    void World::makeQueuedEntities()
     {
-        std::vector<typeInfo::DataTypePool*> result;
+        for (auto&& queue : entityMakeQueues_)
+        {
+            queue();
+        }
+
+        entityMakeQueues_.clear();
+    }
+
+    void World::destroyEntity(Entity& entity)
+    {
+        if(!this->contains(entity))
+        {
+            return;
+        }
+
+        entityDestroyQueues_.emplace_back(entity);
+    }
+
+    void World::destroyQueuedEntities()
+    {
+        for (auto&& entity : entityDestroyQueues_)
+        {
+            componentPools_[entity.get().getPoolId()].removeComponents(entity.get().getIndex());
+            entityPool_.destroyEntity(entity);
+        }
+
+        entityDestroyQueues_.clear();
+    }
+
+    Entity* World::getEntity(const Entity& entity)
+    {
+        return entityPool_.getEntity(entity.getId());
+    }
+
+    std::vector<ComponentPool*> World::getComponentPools(const typeInfo::DataTypeSet& types)
+    {
+        std::vector<ComponentPool*> result;
 
         for (auto&& pool : componentPools_)
         {

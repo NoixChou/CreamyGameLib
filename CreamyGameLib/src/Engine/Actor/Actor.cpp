@@ -38,9 +38,9 @@ namespace creamyLib::engine
     void Actor::removeComponent(Component* component)
     {
         if (!component) return;
-        const auto componentIterator = std::find(components_.begin(), components_.end(), component);
 
-        if (componentIterator != components_.end())
+        if (const auto componentIterator = std::find(components_.begin(), components_.end(), component);
+            componentIterator != components_.end())
         {
             components_.erase(componentIterator);
         }

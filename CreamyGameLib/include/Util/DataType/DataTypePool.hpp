@@ -52,14 +52,14 @@ namespace creamyLib::typeInfo
             return begin_[index];
         }
 
-        Iterator begin()
+        Type* begin()
         {
-            return Iterator(begin_);
+            return begin_;
         }
 
-        Iterator end()
+        Type* end()
         {
-            return Iterator(begin_ + size_);
+            return begin_ + size_;
         }
     };
 

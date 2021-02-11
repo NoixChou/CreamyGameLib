@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "Util/Color.hpp"
+
 namespace creamyLib
 {
     struct ApplicationConfig

@@ -108,9 +108,6 @@
     <ClInclude Include="include\Engine\Entity\ComponentData.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\Entity\ComponentGroup.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\Util\DataType\DataTypePool.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -127,6 +124,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\Entity\EntityPool.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Entity\ComponentPool.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -182,9 +182,6 @@
     <ClCompile Include="src\Util\DataType\DataTypePool.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Entity\ComponentGroup.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Entity\EntityPool.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -195,6 +192,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Entity\ComponentSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Entity\ComponentPool.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

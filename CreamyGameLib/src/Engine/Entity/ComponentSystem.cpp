@@ -12,4 +12,9 @@ namespace creamyLib::engine::ecs
     ComponentSystem::ComponentSystem(World* world): world_(world)
     {
     }
+
+    World* ComponentSystem::getWorld() const
+    {
+        return world_;
+    }
 }

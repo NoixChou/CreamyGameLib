@@ -7,8 +7,14 @@ namespace creamyLib::engine::ecs
         return value + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
 
-    Entity::Entity(std::size_t worldId, std::size_t poolId, std::size_t index): id_(getHash(getHash(worldId, poolId), index)), worldId_(worldId), poolId_(poolId), index_(index)
+    void Entity::updateHash()
     {
+        id_ = getHash(index_, getHash(worldId_, poolId_));
+    }
+
+    Entity::Entity(std::size_t worldId, std::size_t poolId, std::size_t index): id_(0), worldId_(worldId), poolId_(poolId), index_(index)
+    {
+        updateHash();
     }
 
     std::size_t Entity::getId() const

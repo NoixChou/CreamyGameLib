@@ -30,7 +30,7 @@ namespace creamyLib::typeInfo
 
     void DataTypePool::remove(std::size_t index)
     {
-        if(index > size_)
+        if(index >= size_)
         {
             return;
         }

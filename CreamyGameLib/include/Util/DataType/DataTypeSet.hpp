@@ -48,6 +48,12 @@ namespace creamyLib::typeInfo
         bool operator==(const DataTypeSet& rhs) const;
         bool operator!=(const DataTypeSet& rhs) const;
 
+        template<typename ...Types>
+        [[nodiscard]] bool contains() const
+        {
+            return this->contains(DataTypeSet::make<Types...>());
+        }
+
         // typeSet ==contains=> (this) = true
         [[nodiscard]] bool contains(const DataTypeSet& typeSet) const;
 
